@@ -21,6 +21,14 @@ All contributors are invited to submit issues for the following:
 - Feature Requests
 - Discussion
 
+## Contributing to issues
+
+In order to ensure we're progressing in methodically, code shoud only be contributed to existing issues or issues should created which will in turn be added to the project timeline, tabled to the backlog, or dismissed.
+
+- [Accepted Project Timeline](https://github.com/orgs/codewithher/projects/2)
+- We will be following a 2 week sprint cycle
+- Assignments will be handled explicitly via meetings or email
+
 ## Contributing pull requests
 
 When contributing to the repo, please insure that:
@@ -38,3 +46,15 @@ Each feature has an overarching branch that is prefixed with `<issue number>-fea
 
 ![Branching Strategy](./docs/assets/branching.png)
 [Branching Strategy](https://excalidraw.com/#json=ipD_MizpcyOIXut0ERL3P,y7U-re6h8Aj63Ft1Q-x70Q)
+
+
+## FAQ
+
+If you have any questions or concerns, contact ryan@codewithher.org.
+
+- **Not familar with git/version control?**  
+  - I recommend following [GitHub/Skills](https://skills.github.com/) tutorials.
+- **Not familiar with markdown?**
+  - Make sure you use the "preview" feature instead of spamming commits
+  - Do a quick scan of [Markdownguide](https://www.markdownguide.org/cheat-sheet/)
+  - Look at the code view of existing issues or PRs
