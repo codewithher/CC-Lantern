@@ -9,7 +9,7 @@ assignees: ''
 
 **Why:**
 
-Closes the following issues:
+Closes the following issues (all PRs must close an issue):
 
 -
 
