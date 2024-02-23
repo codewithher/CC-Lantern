@@ -42,6 +42,35 @@ class Lantern {
     void begin();
 
     /**
+     * @brief Packs red, green, blue values into uint32 to play nicely with 
+     * Adafruit color functions.
+     * 
+     * @param red 
+     * @param green 
+     * @param blue 
+     * @return uint32_t 
+     */
+    static uint32_t color(uint red, uint green, uint blue);
+
+    /**
+     * @brief Set the color using `color()`.
+     * 
+     * @param seconds how long the light will stay that color
+     * @param color 
+     */
+    void setColor(float seconds, uint32_t color);
+
+    /**
+     * @brief Set the color using just seconds, red, green, and blue
+     * 
+     * @param seconds duration to be set
+     * @param red how red your color will be
+     * @param green how green your color will be
+     * @param blue how blue your color will be
+     */
+    void setColor(float seconds, uint red, uint green, uint blue);
+
+    /**
      * @brief Set the color using Adafruit's `Color()` function.
      * 
      * @param seconds how long the light will stay that color
