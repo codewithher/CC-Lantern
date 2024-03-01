@@ -16,19 +16,19 @@
 
 class Lantern {
   public:
+    
     /**
-     * @brief Construct a new Lantern object with safe default brightness.
+     * @brief Constructs a new Lantern object with safe default values. Uses 
+     * integrated neopixel.
      * 
-     * @param pin output pin on the adafruit flora, defaults to 6
-     * @param numLed number of LED bulbs, defaults to 1
      */
-    Lantern(int pin, int numLed);
+    Lantern();
 
     /**
      * @brief Construct a new Lantern object with specified brightness.
      * 
-     * @param pin output pin on the adafruit flora, defaults to 6
-     * @param numLed number of LED bulbs, defaults to 1
+     * @param pin output pin on the adafruit flora.
+     * @param numLed number of LED lights.
      * @param brightness takes input from 0-255 and controls brightness from 
      * darkest `0` to brightest `255`.
      */
@@ -42,7 +42,7 @@ class Lantern {
     void begin();
 
     /**
-     * @brief Packs red, green, blue values into uint32 to play nicely with 
+     * @brief Packs red, green, blue values into `uint32` to play nicely with 
      * Adafruit color functions.
      * 
      * @param red 
@@ -51,14 +51,6 @@ class Lantern {
      * @return uint32_t 
      */
     static uint32_t color(uint red, uint green, uint blue);
-
-    /**
-     * @brief Set the color using `color()`.
-     * 
-     * @param seconds how long the light will stay that color
-     * @param color 
-     */
-    void setColor(float seconds, uint32_t color);
 
     /**
      * @brief Set the color using just seconds, red, green, and blue

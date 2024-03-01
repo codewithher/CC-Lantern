@@ -1,9 +1,9 @@
 #include "Lantern.h"
 
-Lantern::Lantern(int pin, int numPixels) {
-  _pin  = pin;
-  _numPixels = numPixels;
-  _brightness = 50;
+Lantern::Lantern() {
+  _pin  = 8;            // default is set to #8, integrated neopixel.
+  _numPixels = 1;       // assumes single LED
+  _brightness = 50;     // default is set to ~1/5th brightness. Max is 255.
   _pixels  =  Adafruit_NeoPixel(_numPixels, _pin, NEO_GRB + NEO_KHZ800);
 }
 
