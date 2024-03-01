@@ -42,6 +42,14 @@ class Lantern {
     void begin();
 
     /**
+     * @brief Sets the brightness of the LED.
+     * 
+     * @param brightness takes input from 0-255 and controls brightness from 
+     * darkest `0` to brightest `255`.
+     */
+    void setBrightness(int brightness);
+
+    /**
      * @brief Packs red, green, blue values into `uint32` to play nicely with 
      * Adafruit color functions.
      * 
@@ -66,7 +74,7 @@ class Lantern {
      * @brief Set the color using Adafruit's `Color()` function.
      * 
      * @param seconds how long the light will stay that color
-     * @param color 
+     * @param color packed RGB color value for the light
      */
     void setColor(float seconds, uint32_t color);
 
