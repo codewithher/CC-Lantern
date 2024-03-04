@@ -1,0 +1,41 @@
+/**
+ * Activity 2: Why repeat when you can loop?
+ */
+
+#include <Adafruit_NeoPixel.h>
+
+Lantern lantern();
+
+void setup() {
+  lantern.being();
+}
+
+void loop() {
+  redlight(1);
+  yellowlight(1);
+  greenlight(1);
+}
+
+void redlight(int seconds) {
+  int Red = 150;
+  int Green = 0;
+  int Blue = 0;
+  
+  setColor(seconds, color(Red, Green, Blue));
+}
+
+void yellowlight(int seconds) {
+  int Red = 150;
+  int Green = 150;
+  int Blue = 0;
+  
+  setColor(seconds, color(Red, Green, Blue));
+}
+
+void greenlight(int seconds) {
+  int Red = 0;
+  int Green = 150;
+  int Blue = 0;
+  
+  setColor(seconds, color(Red, Green, Blue));
+}
