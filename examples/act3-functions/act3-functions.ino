@@ -99,8 +99,8 @@ void blinkingPatterns(float on_time, float off_time, int num_blinks) {
     // Turn the LED on
     setColor(on_time, color(Red, Green, Blue));
     
-    // Turn the LED off
-    setColor(off_time, color(Red, Green, Blue));
+    // Turn the LED off by lowering colors to 0
+    setColor(off_time, color(0, 0, 0));
   }
 }
 
