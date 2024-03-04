@@ -2,31 +2,20 @@
  * Activity 3: Make your own patterns!
  */
 
-///////////////////////////// DON'T TOUCH /////////////////////////////////////
 #include <Adafruit_NeoPixel.h>
-#define PIN         6     // where the LED is connected on the board
-#define NUMPIXELS   1     // number of lights
-#define DELAYVAL    500   // 500 milliseconds = 0.5 seconds
-#define BRIGHTNESS  50    // set BRIGHTNESS to about 1/5 (max = 255)
-#define MAX_PIXEL   255   // max pixel brightness / color
-#define STEPS       25    // max amount of steps
-Adafruit_NeoPixel pixels(NUMPIXELS, PIN, NEO_GRB + NEO_KHZ800);
-///////////////////////////////////////////////////////////////////////////////
+
+Lantern lantern();
 
 void setup() {
-  pixels.setBrightness(BRIGHTNESS); 
-  pixels.begin();
+  lantern.begin();
 }
 
 void loop() {
   // try hovering over these functions!
   gradientRed(1.5, 10);
-  blinkingPatterns(2, 10);
+  blinkingPatterns(2, 2, 10);
   fadeInAndOut(1.5, 1.5);
 }
-
-///////////////////////////////////////////////////////////////////////////////
-// Functions
 
 /**
  * Parameters:
@@ -45,9 +34,7 @@ void gradientRed(float seconds, int numSteps) {
 
   for (int step = 0; step < numSteps; step++) {
     Red -= 50;
-    pixels.setPixelColor(0, pixels.Color(Red, Green, Blue));
-    pixels.show();   // Send the updated pixel colors to the hardware.
-    delay(DELAYVAL * 2 * seconds); // Pause before next pass through loop
+    setColor(seconds, color(Red, Green, Blue));
   }
 }
 
@@ -68,9 +55,7 @@ void gradientGreen(float seconds, int numSteps) {
 
   for (int step = 0; step < numSteps; step++) {
     Green -= 50;
-    pixels.setPixelColor(0, pixels.Color(Red, Green, Blue));
-    pixels.show();   // Send the updated pixel colors to the hardware.
-    delay(DELAYVAL * 2 * seconds); // Pause before next pass through loop
+    setColor(seconds, color(Red, Green, Blue));
   }
 }
 
@@ -91,9 +76,7 @@ void gradientBlue(float seconds, int numSteps) {
 
   for (int step = 0; step < numSteps; step++) {
     Blue -= 50;
-    pixels.setPixelColor(0, pixels.Color(Red, Green, Blue));
-    pixels.show();   // Send the updated pixel colors to the hardware.
-    delay(DELAYVAL * 2 * seconds); // Pause before next pass through loop
+    setColor(seconds, color(Red, Green, Blue));
   }
 }
 
@@ -107,23 +90,17 @@ void gradientBlue(float seconds, int numSteps) {
  * ---
  * Example Function Call: `blinkingPatterns(1,10)` --> this makes the LED blink on and off for 1 second each, 10 times
  */
-void blinkingPatterns(float seconds, int num_blinks) {
+void blinkingPatterns(float on_time, float off_time, int num_blinks) {
   int Red = 255;
   int Green = 255;
   int Blue = 255;
-  int on_time = DELAYVAL * 2 * seconds;
-  int off_time = DELAYVAL * 2 * seconds;
 
   for (int i = 0; i < num_blinks; i++) {
     // Turn the LED on
-    pixels.setPixelColor(0, pixels.Color(Red, Green, Blue));
-    pixels.show();
-    delay(on_time);
+    setColor(on_time, color(Red, Green, Blue));
     
     // Turn the LED off
-    pixels.setPixelColor(0, pixels.Color(0, 0, 0));
-    pixels.show();
-    delay(off_time);
+    setColor(off_time, color(Red, Green, Blue));
   }
 }
 
@@ -155,15 +132,14 @@ void fadeIn(float seconds) {
   int Red = 150;
   int Green = 0;
   int Blue = 0;
-  int brightnessStep = 5;    // how much we decrease brightness by
-  int brightnessMaxStep = BRIGHTNESS / brightnessStep;  // how many steps it takes
+  int brightnessStep = 5;     // how much we decrease brightness by
+  int brightnessStart = 200;  // how much we start brightness at
+  int brightnessMaxStep = brightnessStart / brightnessStep;  // how many steps it takes
 
   // Fade Out
   for (int step = 0; step < brightnessMaxStep; step++) {
-    pixels.setBrightness(BRIGHTNESS - (step * brightnessStep));
-    pixels.setPixelColor(0, pixels.Color(Red, Green, Blue));
-    pixels.show();
-    delay(DELAYVAL * 2 * seconds);
+    setBrightness(brightnessStart - (step * brightnessStep));
+    setColor(seconds, color(Red, Green, Blue));
   }
 }
 
@@ -180,14 +156,13 @@ void fadeOut(float seconds) {
   int Green = 120;
   int Blue = 0;
   int brightnessStep = 5;    // how much we decrease brightness by
-  int brightnessMaxStep = BRIGHTNESS / brightnessStep;  // how many steps it takes
+  int brightnessStart = 200;  // how much we start brightness at
+  int brightnessMaxStep = brightnessStart / brightnessStep;  // how many steps it takes
 
   // Fade Out
   for (int step = 0; step < brightnessMaxStep; step++) {
-    pixels.setBrightness(BRIGHTNESS + (step * brightnessStep));
-    pixels.setPixelColor(0, pixels.Color(Red, Green, Blue));
-    pixels.show();
-    delay(DELAYVAL * 2 * seconds);
+    setBrightness(brightnessStart - (step * brightnessStep));
+    setColor(seconds, color(Red, Green, Blue));
   }
 }
 
@@ -206,20 +181,17 @@ void pulsatingEffect(int seconds, int numPulses) {
   int Red = 150;
   int Green = 0;
   int Blue = 0;
-  int NUM_PULSATIONS = numPulses;
-  int PULSATE_DELAY = DELAYVAL * 2 * seconds;
+  int brightnessStart = 200;  // how much we start brightness at
 
-  for (int i = 0; i < NUM_PULSATIONS; i++) {
-    for (int brightness = 0; brightness <= BRIGHTNESS; brightness++) {
-      pixels.setBrightness(brightness);
-      pixels.show();
-      delay(PULSATE_DELAY);
+  for (int i = 0; i < numPulses; i++) {
+    for (int brightness = 0; brightness <= brightnessStart; brightness++) {
+      setBrightness(brightness);
+      setColor(seconds, color(Red, Green, Blue));
     }
     
-    for (int brightness = BRIGHTNESS; brightness >= 0; brightness--) {
-      pixels.setBrightness(brightness);
-      pixels.show();
-      delay(PULSATE_DELAY);
+    for (int brightness = brightnessStart; brightness >= 0; brightness--) {
+      setBrightness(brightness);
+      setColor(seconds, color(Red, Green, Blue));
     }
   }
 }
