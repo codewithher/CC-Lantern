@@ -7,7 +7,7 @@
 Lantern lantern();
 
 void setup() {
-  lantern.being();
+  lantern.begin();
 }
 
 void loop() {
