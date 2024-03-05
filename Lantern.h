@@ -58,7 +58,7 @@ class Lantern {
      * @param blue 
      * @return uint32_t 
      */
-    static uint32_t color(uint8_t red, uint8_t green, uint8_t blue);
+    uint32_t color(uint8_t red, uint8_t green, uint8_t blue);
 
     /**
      * @brief Set the color using just seconds, red, green, and blue

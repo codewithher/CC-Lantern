@@ -23,7 +23,7 @@ void Lantern::setBrightness(uint8_t brightness) {
   _pixels.setBrightness(brightness);  
 }
 
-static uint32_t Lantern::color(uint8_t red, uint8_t green, uint8_t blue) {
+uint32_t Lantern::color(uint8_t red, uint8_t green, uint8_t blue) {
   // The red, green, and blue values are bitwise ANDed with 0xFF to ensure they 
   // fit within the range of 0-255, and then left-shifted and combined using 
   // bitwise OR operations.
@@ -31,8 +31,7 @@ static uint32_t Lantern::color(uint8_t red, uint8_t green, uint8_t blue) {
   // a 32-bit color is composed of 8-bit red, green, and blue values
   // | RED      | GREEN   | BLUE   |
   // | 32 -> 24 | 24 -> 16 | 16 -> 8 |
-  const uint8_t MAX = 255;
-  return ((red & MAX) << 24) | ((green & MAX) << 16) | (blue & MAX) << 8;
+  return _pixels.Color(red, green, blue);
 }
 
 void Lantern::setColor(float seconds, uint8_t red, uint8_t green, uint8_t blue) {
