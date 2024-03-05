@@ -39,22 +39,21 @@ void Lantern::setColor(float seconds, uint8_t red, uint8_t green, uint8_t blue) 
   setColor(seconds, color(red, green, blue));
 }
 
-void Lantern::setColor(float seconds, uint32_t color) {
+void Lantern::setColor(std::chrono::duration<float> duration, uint32_t color) {
   _pixels.setPixelColor(0, color);
   _pixels.show();
-  wait(seconds);
+  wait(duration);
 }
 
-static void Lantern::wait(float seconds) {
-  const int THREE_DAYS = 259200;
-
+static void Lantern::wait(std::chrono::duration<float> seconds) {
+  static constexpr auto THREE_DAYS = 259200s;
   // Bounds check
-  if (seconds < 0) {
+  if (seconds < 0s) {
     Serial.print("Can't wait negative seconds, waiting default of 0.25 seconds");
-    seconds = 0.25;
+    seconds = 0.25s;
   } else if (seconds > THREE_DAYS) {
     Serial.print("Are you sure you want to keep this color for longer than 3 days? That's a long time!");
   }
 
-  delay(seconds);
+  std::this_thread::sleep_for(seconds);
 }
