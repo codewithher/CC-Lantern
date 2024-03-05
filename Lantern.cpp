@@ -23,7 +23,7 @@ Lantern::setBrightness(int brightness) {
   _pixels.setBrightness(brightness);  
 }
 
-static uint32_t Lantern::color(uint red, uint green, uint blue) {
+static uint32_t Lantern::color(int red, int green, int blue) {
   return _pixels.Color(red, green, blue);
 }
 
