@@ -14,12 +14,12 @@ Lantern::Lantern(int pin, int numPixels, int brightness) {
   _pixels  =  Adafruit_NeoPixel(_numPixels, _pin, NEO_GRB + NEO_KHZ800);
 }
 
-Lantern::begin() {
+void Lantern::begin() {
   _pixels.setBrightness(_brightness);
   _pixels.begin();
 }
 
-Lantern::setBrightness(int brightness) {
+void Lantern::setBrightness(int brightness) {
   _pixels.setBrightness(brightness);  
 }
 
@@ -38,7 +38,7 @@ void Lantern::setColor(float seconds, uint32_t color) {
   wait(seconds);
 }
 
-Lantern::wait(float seconds) {
+static void Lantern::wait(float seconds) {
   const THREE_DAYS = 259200;
 
   // Bounds check

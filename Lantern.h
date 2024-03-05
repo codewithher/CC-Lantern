@@ -86,7 +86,7 @@ class Lantern {
      * 
      * @param seconds 
      */
-    void wait(float seconds);
+    static void wait(float seconds);
 
   private:
     int _pin;
