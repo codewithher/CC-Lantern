@@ -2,7 +2,7 @@
  * Activity 3: Make your own patterns!
  */
 
-#include <Adafruit_NeoPixel.h>
+#include <Lantern.h>
 
 Lantern lantern();
 
@@ -34,7 +34,7 @@ void gradientRed(float seconds, int numSteps) {
 
   for (int step = 0; step < numSteps; step++) {
     Red -= 50;
-    setColor(seconds, color(Red, Green, Blue));
+    lantern.setColor(seconds, lantern.color(Red, Green, Blue));
   }
 }
 
@@ -55,7 +55,7 @@ void gradientGreen(float seconds, int numSteps) {
 
   for (int step = 0; step < numSteps; step++) {
     Green -= 50;
-    setColor(seconds, color(Red, Green, Blue));
+    lantern.setColor(seconds, lantern.color(Red, Green, Blue));
   }
 }
 
@@ -76,7 +76,7 @@ void gradientBlue(float seconds, int numSteps) {
 
   for (int step = 0; step < numSteps; step++) {
     Blue -= 50;
-    setColor(seconds, color(Red, Green, Blue));
+    lantern.setColor(seconds, lantern.color(Red, Green, Blue));
   }
 }
 
@@ -97,10 +97,10 @@ void blinkingPatterns(float on_time, float off_time, int num_blinks) {
 
   for (int i = 0; i < num_blinks; i++) {
     // Turn the LED on
-    setColor(on_time, color(Red, Green, Blue));
+    lantern.setColor(on_time, lantern.color(Red, Green, Blue));
     
     // Turn the LED off by lowering colors to 0
-    setColor(off_time, color(0, 0, 0));
+    lantern.setColor(off_time, lantern.color(0, 0, 0));
   }
 }
 
@@ -138,8 +138,8 @@ void fadeIn(float seconds) {
 
   // Fade Out
   for (int step = 0; step < brightnessMaxStep; step++) {
-    setBrightness(brightnessStart - (step * brightnessStep));
-    setColor(seconds, color(Red, Green, Blue));
+    lantern.setBrightness(brightnessStart - (step * brightnessStep));
+    lantern.setColor(seconds, lantern.color(Red, Green, Blue));
   }
 }
 
@@ -161,8 +161,8 @@ void fadeOut(float seconds) {
 
   // Fade Out
   for (int step = 0; step < brightnessMaxStep; step++) {
-    setBrightness(brightnessStart - (step * brightnessStep));
-    setColor(seconds, color(Red, Green, Blue));
+    lantern.setBrightness(brightnessStart - (step * brightnessStep));
+    lantern.setColor(seconds, lantern.color(Red, Green, Blue));
   }
 }
 
@@ -185,13 +185,13 @@ void pulsatingEffect(int seconds, int numPulses) {
 
   for (int i = 0; i < numPulses; i++) {
     for (int brightness = 0; brightness <= brightnessStart; brightness++) {
-      setBrightness(brightness);
-      setColor(seconds, color(Red, Green, Blue));
+      lantern.setBrightness(brightness);
+      lantern.setColor(seconds, lantern.color(Red, Green, Blue));
     }
     
     for (int brightness = brightnessStart; brightness >= 0; brightness--) {
-      setBrightness(brightness);
-      setColor(seconds, color(Red, Green, Blue));
+      lantern.setBrightness(brightness);
+      lantern.setColor(seconds, lantern.color(Red, Green, Blue));
     }
   }
 }

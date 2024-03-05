@@ -2,7 +2,7 @@
  * Activity 1: Get those lights on!
  * 
  */
-#include <Adafruit_NeoPixel.h>
+#include <Lantern.h>
 
 Lantern lantern();
 
@@ -37,5 +37,5 @@ void checkLight() {
   int blue = 0;
   float seconds = 0.5;
 
-  setColor(seconds, color(red, green, blue));
+  lantern.setColor(seconds, lantern.color(red, green, blue));
 }

@@ -2,7 +2,7 @@
  * Activity 2: Why repeat when you can loop?
  */
 
-#include <Adafruit_NeoPixel.h>
+#include <Lantern.h>
 
 Lantern lantern();
 
@@ -21,7 +21,7 @@ void redlight(int seconds) {
   int Green = 0;
   int Blue = 0;
   
-  setColor(seconds, color(Red, Green, Blue));
+  lantern.setColor(seconds, lantern.color(Red, Green, Blue));
 }
 
 void yellowlight(int seconds) {
@@ -29,7 +29,7 @@ void yellowlight(int seconds) {
   int Green = 150;
   int Blue = 0;
   
-  setColor(seconds, color(Red, Green, Blue));
+  lantern.setColor(seconds, lantern.color(Red, Green, Blue));
 }
 
 void greenlight(int seconds) {
@@ -37,5 +37,5 @@ void greenlight(int seconds) {
   int Green = 150;
   int Blue = 0;
   
-  setColor(seconds, color(Red, Green, Blue));
+  lantern.setColor(seconds, lantern.color(Red, Green, Blue));
 }
