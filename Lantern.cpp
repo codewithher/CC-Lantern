@@ -7,7 +7,7 @@ Lantern::Lantern() {
   _pixels  =  Adafruit_NeoPixel(_numPixels, _pin, NEO_GRB + NEO_KHZ800);
 }
 
-Lantern::Lantern(int pin, int numPixels, int brightness) {
+Lantern::Lantern(uint8_t pin, uint8_t numPixels, uint8_t brightness) {
   _pin  = pin;
   _numPixels = numPixels;
   _brightness = brightness;
@@ -19,11 +19,11 @@ void Lantern::begin() {
   _pixels.begin();
 }
 
-void Lantern::setBrightness(int brightness) {
+void Lantern::setBrightness(uint8_t brightness) {
   _pixels.setBrightness(brightness);  
 }
 
-static uint32_t Lantern::color(int red, int green, int blue) {
+static uint32_t Lantern::color(uint8_t red, uint8_t green, uint8_t blue) {
   // The red, green, and blue values are bitwise ANDed with 0xFF to ensure they 
   // fit within the range of 0-255, and then left-shifted and combined using 
   // bitwise OR operations.
@@ -35,12 +35,11 @@ static uint32_t Lantern::color(int red, int green, int blue) {
   return ((red & MAX) << 16) | ((green & MAX) << 8) | (blue & MAX);
 }
 
-void Lantern::setColor(float seconds, int red, int green, int blue) {
+void Lantern::setColor(float seconds, uint8_t red, uint8_t green, uint8_t blue) {
   setColor(seconds, color(red, green, blue));
 }
 
 void Lantern::setColor(float seconds, uint32_t color) {
-  begin();
   _pixels.setPixelColor(0, color);
   _pixels.show();
   wait(seconds);

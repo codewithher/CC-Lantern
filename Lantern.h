@@ -32,7 +32,7 @@ class Lantern {
      * @param brightness takes input from 0-255 and controls brightness from 
      * darkest `0` to brightest `255`.
      */
-    Lantern(int pin, int numLed, int brightness);
+    Lantern(uint8_t pin, uint8_t numLed, uint8_t brightness);
 
     /**
      * @brief Starts or restarts LED at current brightness.
@@ -47,7 +47,7 @@ class Lantern {
      * @param brightness takes input from 0-255 and controls brightness from 
      * darkest `0` to brightest `255`.
      */
-    void setBrightness(int brightness);
+    void setBrightness(uint8_t brightness);
 
     /**
      * @brief Packs red, green, blue values into `uint32` to play nicely with 
@@ -58,7 +58,7 @@ class Lantern {
      * @param blue 
      * @return uint32_t 
      */
-    static uint32_t color(int red, int green, int blue);
+    static uint32_t color(uint8_t red, uint8_t green, uint8_t blue);
 
     /**
      * @brief Set the color using just seconds, red, green, and blue
@@ -68,7 +68,7 @@ class Lantern {
      * @param green how green your color will be
      * @param blue how blue your color will be
      */
-    void setColor(float seconds, int red, int green, int blue);
+    void setColor(float seconds, uint8_t red, uint8_t green, uint8_t blue);
 
     /**
      * @brief Set the color using Adafruit's `Color()` function.
