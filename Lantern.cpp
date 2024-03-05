@@ -27,7 +27,7 @@ static uint32_t Lantern::color(int red, int green, int blue) {
   return _pixels.Color(red, green, blue);
 }
 
-void Lantern::setColor(float seconds, uint red, uint green, uint blue) {
+void Lantern::setColor(float seconds, int red, int green, int blue) {
   setColor(seconds, color(red, green, blue));
 }
 

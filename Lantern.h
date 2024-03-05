@@ -58,7 +58,7 @@ class Lantern {
      * @param blue 
      * @return uint32_t 
      */
-    static uint32_t color(uint red, uint green, uint blue);
+    static uint32_t color(int red, int green, int blue);
 
     /**
      * @brief Set the color using just seconds, red, green, and blue
@@ -68,7 +68,7 @@ class Lantern {
      * @param green how green your color will be
      * @param blue how blue your color will be
      */
-    void setColor(float seconds, uint red, uint green, uint blue);
+    void setColor(float seconds, int red, int green, int blue);
 
     /**
      * @brief Set the color using Adafruit's `Color()` function.
