@@ -45,7 +45,7 @@ We incorporate a modified [GitHub flow](https://docs.github.com/en/get-started/u
 Each feature has an overarching branch that is prefixed with `<issue number>-feature-<feature_name>` which then has subsequent branches implementing parts of that feature. The intention is to make small PRs that are easier to [conduct code review](https://www.youtube.com/watch?v=-4b3OSwuLM8) for. See the attached image example for more details.
 
 ![Branching Strategy](./docs/assets/branching.png)
-[Branching Strategy](https://excalidraw.com/#json=ipD_MizpcyOIXut0ERL3P,y7U-re6h8Aj63Ft1Q-x70Q)
+[Branching Strategy](https://excalidraw.com/#json=a5Nm80xPT2uzbYwdAoNp4,Yggmz2D6xa9LTu0WR1loQw)
 
 
 ## FAQ
