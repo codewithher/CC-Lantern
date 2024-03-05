@@ -30,30 +30,30 @@ static uint32_t Lantern::color(uint8_t red, uint8_t green, uint8_t blue) {
 
   // a 32-bit color is composed of 8-bit red, green, and blue values
   // | RED      | GREEN   | BLUE   |
-  // | 32 -> 16 | 16 -> 8 | 8 -> 0 |
+  // | 32 -> 24 | 24 -> 16 | 16 -> 8 |
   const uint8_t MAX = 255;
-  return ((red & MAX) << 16) | ((green & MAX) << 8) | (blue & MAX);
+  return ((red & MAX) << 24) | ((green & MAX) << 16) | (blue & MAX) << 8;
 }
 
 void Lantern::setColor(float seconds, uint8_t red, uint8_t green, uint8_t blue) {
   setColor(seconds, color(red, green, blue));
 }
 
-void Lantern::setColor(std::chrono::duration<float> duration, uint32_t color) {
+void Lantern::setColor(float duration, uint32_t color) {
   _pixels.setPixelColor(0, color);
   _pixels.show();
   wait(duration);
 }
 
-static void Lantern::wait(std::chrono::duration<float> seconds) {
-  static constexpr auto THREE_DAYS = 259200s;
+static void Lantern::wait(float seconds) {
+  static const float THREE_DAYS = 259200;
   // Bounds check
-  if (seconds < 0s) {
+  if (seconds < 0) {
     Serial.print("Can't wait negative seconds, waiting default of 0.25 seconds");
-    seconds = 0.25s;
+    seconds = 0.25;
   } else if (seconds > THREE_DAYS) {
     Serial.print("Are you sure you want to keep this color for longer than 3 days? That's a long time!");
   }
 
-  std::this_thread::sleep_for(seconds);
+  delay(int(seconds * 1000));
 }

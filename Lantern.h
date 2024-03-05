@@ -68,7 +68,7 @@ class Lantern {
      * @param green how green your color will be
      * @param blue how blue your color will be
      */
-    void setColor(std::chrono::duration<float> seconds, uint8_t red, uint8_t green, uint8_t blue);
+    void setColor(float seconds, uint8_t red, uint8_t green, uint8_t blue);
 
     /**
      * @brief Set the color using Adafruit's `Color()` function.
@@ -76,7 +76,7 @@ class Lantern {
      * @param seconds how long the light will stay that color
      * @param color packed RGB color value for the light
      */
-    void setColor(std::chrono::duration<float> seconds, uint32_t color);
+    void setColor(float seconds, uint32_t color);
 
     /**
      * @brief Wait for the amount of seconds before continuing. Used to hold 
@@ -86,7 +86,7 @@ class Lantern {
      * 
      * @param seconds 
      */
-    static void wait(std::chrono::duration<float> seconds);
+    static void wait(float seconds);
 
   private:
     int _pin;
