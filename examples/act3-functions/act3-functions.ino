@@ -12,8 +12,9 @@ void setup() {
 
 void loop() {
   // try hovering over these functions!
+  Serial.println("Starting Loop!");
   gradientRed(1.5, 10);
-  blinkingPatterns(2, 2, 10);
+  pulsingEffect(1, 2);
   fadeInAndOut(1.5, 1.5);
 }
 
@@ -28,6 +29,7 @@ void loop() {
  * Example Function Call: `gradientRed(2,4)` --> this decreases the red RBG value every 2 seconds, for 4 times
  */
 void gradientRed(float seconds, int numSteps) {
+  Serial.println("gradientRed");
   int Red = 250;
   int Green = 250;
   int Blue = 250;
@@ -49,6 +51,7 @@ void gradientRed(float seconds, int numSteps) {
  * Example Function Call: `gradientGreen(2,4)` --> this decreases the green RBG value every 2 seconds, for 4 times
  */
 void gradientGreen(float seconds, int numSteps) {
+  Serial.println("gradientGreen");
   int Red = 250;
   int Green = 250;
   int Blue = 250;
@@ -70,6 +73,7 @@ void gradientGreen(float seconds, int numSteps) {
  * Example Function Call: `gradientBlue(2,4)` --> this decreases the blue RBG value every 2 seconds, for 4 times
  */
 void gradientBlue(float seconds, int numSteps) {
+  Serial.println("gradientBlue");
   int Red = 250;
   int Green = 250;
   int Blue = 250;
@@ -91,6 +95,7 @@ void gradientBlue(float seconds, int numSteps) {
  * Example Function Call: `blinkingPatterns(1,10)` --> this makes the LED blink on and off for 1 second each, 10 times
  */
 void blinkingPatterns(float on_time, float off_time, int num_blinks) {
+  Serial.println("blinking patterns");
   int Red = 255;
   int Green = 255;
   int Blue = 255;
@@ -116,6 +121,7 @@ void blinkingPatterns(float on_time, float off_time, int num_blinks) {
  *   and then fade out with the brighness changing every 2 seconds
  */
 void fadeInAndOut(float fadeInSeconds, float fadeOutSeconds) {
+  Serial.println("fade in and out");
   fadeIn(fadeInSeconds);
   fadeOut(fadeOutSeconds);
 }
@@ -174,10 +180,11 @@ void fadeOut(float seconds) {
  * Function Description: This function makes your LED slowly turn all the way on and all the way off a "numPulses"
  *   amount of times, with the brightness changing every "seconds" amount of seconds
  * ---
- * Example Function Call: `pulsatingEffect(1,2)` --> this makes the LED turn on and off 2 times with the brightness
+ * Example Function Call: `pulsingEffect(1,2)` --> this makes the LED turn on and off 2 times with the brightness
  *   changing every 1 second
  */
-void pulsatingEffect(int seconds, int numPulses) {
+void pulsingEffect(int seconds, int numPulses) {
+  Serial.println("pulsating effect");
   int Red = 150;
   int Green = 0;
   int Blue = 0;
