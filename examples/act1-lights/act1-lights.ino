@@ -4,7 +4,7 @@
  */
 #include <Lantern.h>
 
-Lantern lantern();
+Lantern lantern;
 
 /**
  * @brief This function only runs once to "setup" the Lantern.

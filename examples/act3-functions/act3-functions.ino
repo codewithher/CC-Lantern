@@ -4,7 +4,7 @@
 
 #include <Lantern.h>
 
-Lantern lantern();
+Lantern lantern;
 
 void setup() {
   lantern.begin();
