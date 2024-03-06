@@ -11,7 +11,7 @@ void setup() {
 }
 
 void loop() {
-  // try hovering over these functions!
+  // try hovering over these functions to see the comments!
   gradientRed(1.5, 10);
   blinkingPatterns(2, 2, 10);
   fadeInAndOut(1.5, 1.5);

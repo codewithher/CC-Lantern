@@ -48,10 +48,10 @@ static void Lantern::wait(float seconds) {
   static const float THREE_DAYS = 259200;
   // Bounds check
   if (seconds < 0) {
-    Serial.print("Can't wait negative seconds, waiting default of 0.25 seconds");
+    Serial.println("Can't wait negative seconds, waiting default of 0.25 seconds");
     seconds = 0.25;
   } else if (seconds > THREE_DAYS) {
-    Serial.print("Are you sure you want to keep this color for longer than 3 days? That's a long time!");
+    Serial.println("Are you sure you want to keep this color for longer than 3 days? That's a long time!");
   }
 
   delay(int(seconds * 1000));
