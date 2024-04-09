@@ -11,7 +11,7 @@ assignees: '@totally-not-frito-lays'
 
 Closes the following issues (all PRs must close an issue):
 
--
+- closes `REPLACEME WITH ISSUE #`
 
 **What's being changed**
 
