@@ -51,10 +51,25 @@ Each feature has an overarching branch that is prefixed with `<issue number>-fea
 
 Git Version Tags / Release Tags are required to be accepted into the Arduino Registry. The current version should be reflected in [library.properties](/library.properties)
 
-Each new PR should increment the current release version as follows:
-- 1.0.0 for full new versions that has major rewrites in the corresponding instruction material
-- 0.1.0 for new features or activities
-- 0.0.1 for bug patches or fixes
+Each new PR should increment the current release version in the following format `version.feature.patch`:
+- `1.0.0` for full new versions that has major rewrites in the corresponding instruction material
+- `0.1.0` for new features or activities
+- `0.0.1` for bug patches or fixes
+
+When the release version is incremented, any numbers to the right are reset to 0.
+
+- Ex: New major version: `0.2.0` -> `1.0.0`
+  - Version `0 -> 1`
+  - Feature `2 -> 0`
+  - Patch `0 -> 0`
+- Ex: New feature: `4.8.2` ->  `4.9.0`
+  - Version `4`
+  - Feature `8 -> 9`
+  - Patch `2 -> 0`
+- Ex: New patch: `5.4.22` -> `5.4.23`
+  - Version `5`
+  - Feature `4`
+  - Patch `22 -> 23`
 
 ## FAQ
 
