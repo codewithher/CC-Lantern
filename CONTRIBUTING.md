@@ -47,6 +47,14 @@ Each feature has an overarching branch that is prefixed with `<issue number>-fea
 ![Branching Strategy](./docs/assets/branching.png)
 [Branching Strategy](https://excalidraw.com/#json=a5Nm80xPT2uzbYwdAoNp4,Yggmz2D6xa9LTu0WR1loQw)
 
+## Git Versioning Semantics
+
+Git Version Tags / Release Tags are required to be accepted into the Arduino Registry. The current version should be reflected in [library.properties](/library.properties)
+
+Each new PR should increment the current release version as follows:
+- 1.0.0 for full new versions that has major rewrites in the corresponding instruction material
+- 0.1.0 for new features or activities
+- 0.0.1 for bug patches or fixes
 
 ## FAQ
 
