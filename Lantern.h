@@ -88,6 +88,23 @@ class Lantern {
      */
     static void wait(float seconds);
 
+    /**
+     * @brief Eases the brightness of the LED to 0 using the easeOutCirc motion
+     * over the allotted number of seconds.
+     * 
+     * @param seconds 
+     */
+    void easeOut(int seconds);
+    
+    /**
+     * @brief Calculates the rate that the brightness of the LED should be at
+     *  depending on how much time out of the alloted time has passed.
+     * 
+     * @param proportion from 0 to 1, how much time has passed 
+     */
+    float easeOutCirc(float proportion);
+
+
   private:
     int _pin;
     int _numPixels;

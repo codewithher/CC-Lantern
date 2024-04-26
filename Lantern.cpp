@@ -56,3 +56,21 @@ static void Lantern::wait(float seconds) {
 
   delay(int(seconds * 1000));
 }
+
+float Lantern::easeOutCirc(float proportion) {
+  return Math.sqrt(1 - Math.pow(proportion - 1, 2));
+}
+
+void Lantern::easeOut(int seconds) {
+  unsigned long startTime = millis();
+  unsigned long endTime = startTime + seconds * 1000;
+  unsigned long currentTime;
+
+  while ((currentTime = millis()) < endTime) {
+    float t = float(currentTime - startTime) / (seconds * 1000);
+    float easing = easeOutCirc(t);
+    int brightness = int((1 - easing) * 255);
+    setBrightness(brightness);
+    delay(10); 
+  }
+}
