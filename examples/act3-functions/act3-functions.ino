@@ -13,8 +13,8 @@ void setup() {
 void loop() {
   // try hovering over these functions to see the comments!
   rainbow(20);
-  blinkingPatterns(2, 2, 10);
-  fadeInAndOut(1.5, 1.5);
+  //blinkingPatterns(2, 2, 10);
+  //fadeInAndOut(1.5, 1.5);
 }
 
 /**
@@ -31,9 +31,15 @@ void rainbow(float seconds) {
   int Green = 0; 
   int Blue = 0;
 
+  if (seconds <= 0) {
+    seconds = 0.25;
+  }
+
   for (Red = 255; Red > 0; Red --) {
     Green += 1; 
     lantern.setColor(seconds / 765, lantern.color(Red, Green, Blue));
+    // the value 765 came from multiplying 255 by 3 since we have 3 loops that 
+    // need to go through the full spectrum of the pixel (which has 255 steps)!
   }
 
   for (Green = 255; Green > 0; Green --) {
