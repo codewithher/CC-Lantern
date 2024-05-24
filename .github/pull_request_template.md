@@ -11,7 +11,7 @@ assignees: '@totally-not-frito-lays'
 
 Closes the following issues (all PRs must close an issue):
 
--
+- closes `REPLACEME WITH ISSUE #`
 
 **What's being changed**
 
@@ -26,4 +26,6 @@ Closes the following issues (all PRs must close an issue):
 **Check off the following**
 
 - [ ] I have tested my changes locally
-- [ ] I have assigned a codeowner as a reviewer (default is @totally-not-frito-lays)
+- [ ] I have incremented the version number in the [library.properties](/library.properties) file [^1]
+
+[^1]: See [CONTRIBUTING.md](/CONTRIBUTING.md) for more information on version semantics
