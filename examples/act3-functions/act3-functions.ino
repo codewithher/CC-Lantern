@@ -13,8 +13,9 @@ void setup() {
 void loop() {
   // try hovering over these functions to see the comments!
   rainbow(20);
-  //blinkingPatterns(2, 2, 10);
-  //fadeInAndOut(1.5, 1.5);
+  // Other functions to try after rainbow()
+  // blinkingPatterns(2, 2, 10);
+  // fadeInAndOut(1.5, 1.5);
 }
 
 /**
@@ -27,29 +28,33 @@ void loop() {
  * Example Function Call: `rainbowStep(30)` --> creates a rainbow that lasts 30 seconds. 
  */
 void rainbow(float seconds) {
-  int Red = 0; 
-  int Green = 0; 
-  int Blue = 0;
+  int red = 0; 
+  int green = 0; 
+  int blue = 0;
 
+  // Set default value of 0.25 if an invalid number is given
   if (seconds <= 0) {
     seconds = 0.25;
   }
 
-  for (Red = 255; Red > 0; Red --) {
-    Green += 1; 
-    lantern.setColor(seconds / 765, lantern.color(Red, Green, Blue));
-    // the value 765 came from multiplying 255 by 3 since we have 3 loops that 
-    // need to go through the full spectrum of the pixel (which has 255 steps)!
+  const int steps = 255;  // Number of steps for each color in the LED
+  const int num_led = 3;  // Number of colors per LED (RGB)  
+  const int total_steps = steps * num_led;              // Total steps in the gradient  
+  const float time_per_color = seconds / total_steps;   // Time for each color step  
+
+  for (red = 255; red > 0; red --) {
+    green += 1; 
+    lantern.setColor(time_per_color, lantern.color(red, green, blue));
   }
 
-  for (Green = 255; Green > 0; Green --) {
-    Blue += 1; 
-    lantern.setColor(seconds / 765, lantern.color(Red, Green, Blue));
+  for (green = 255; green > 0; green --) {
+    blue += 1; 
+    lantern.setColor(time_per_color, lantern.color(red, green, blue));
   }
 
-  for (Blue = 255; Blue > 0; Blue --) {
-    Red += 1; 
-    lantern.setColor(seconds / 765, lantern.color(Red, Green, Blue));
+  for (blue = 255; blue > 0; blue --) {
+    red += 1; 
+    lantern.setColor(time_per_color, lantern.color(red, green, blue));
   }
 }
 
