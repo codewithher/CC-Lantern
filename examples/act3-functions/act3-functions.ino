@@ -12,71 +12,49 @@ void setup() {
 
 void loop() {
   // try hovering over these functions to see the comments!
-  gradientRed(1.5, 10);
-  blinkingPatterns(2, 2, 10);
-  fadeInAndOut(1.5, 1.5);
+  rainbow(20);
+  // Other functions to try after rainbow()
+  // blinkingPatterns(2, 2, 10);
+  // fadeInAndOut(1.5, 1.5);
 }
 
 /**
  * Parameters:
- *   - "seconds": a number that describes how long you want each "iteration" to be
- *   - "numSteps": a number that describes how many times you want the red color to change
+ *   - "seconds": a number that describes how long you want the rainbow gradient to be
  * ---
- * Function Description: This function sets your LED to white (aka all RGB values to 255) and decreases 
- *   the red RGB value by 10 a "numSteps" amount of times. It will decrease the value every "seconds" seconds.
+ * Function Description: This function rotates your LED through the RGB colors (from red to green to blue) by 
+ * decreasing each pixel by a value of 1. It will go through the entire rainbow of colors is "seconds" seconds.
  * ---
- * Example Function Call: `gradientRed(2,4)` --> this decreases the red RBG value every 2 seconds, for 4 times
+ * Example Function Call: `rainbowStep(30)` --> creates a rainbow that lasts 30 seconds. 
  */
-void gradientRed(float seconds, int numSteps) {
-  int Red = 250;
-  int Green = 250;
-  int Blue = 250;
+void rainbow(float seconds) {
+  int red = 0; 
+  int green = 0; 
+  int blue = 0;
 
-  for (int step = 0; step < numSteps; step++) {
-    Red -= 50;
-    lantern.setColor(seconds, lantern.color(Red, Green, Blue));
+  // Set default value of 0.25 if an invalid number is given
+  if (seconds <= 0) {
+    seconds = 0.25;
   }
-}
 
-/*
- * Parameters:
- *   - "seconds": a number that describes how long you want each "iteration" to be
- *   - "numSteps": a number that describes how many times you want the green color to change
- * ---
- * Function Description: This function sets your LED to white (aka all RGB values to 255) and decreases 
- *   the green RGB value by 10 a "numSteps" amount of times. It will decrease the value every "seconds" seconds.
- * ---
- * Example Function Call: `gradientGreen(2,4)` --> this decreases the green RBG value every 2 seconds, for 4 times
- */
-void gradientGreen(float seconds, int numSteps) {
-  int Red = 250;
-  int Green = 250;
-  int Blue = 250;
+  const int steps = 255;  // Number of steps for each color in the LED
+  const int num_led = 3;  // Number of colors per LED (RGB)  
+  const int total_steps = steps * num_led;              // Total steps in the gradient  
+  const float time_per_color = seconds / total_steps;   // Time for each color step  
 
-  for (int step = 0; step < numSteps; step++) {
-    Green -= 50;
-    lantern.setColor(seconds, lantern.color(Red, Green, Blue));
+  for (red = 255; red > 0; red --) {
+    green += 1; 
+    lantern.setColor(time_per_color, lantern.color(red, green, blue));
   }
-}
 
-/*
- * Parameters:
- *   - "seconds": a number that describes how long you want each "iteration" to be
- *   - "numSteps": a number that describes how many times you want the blue color to change
- * ---
- * Function Description: This function sets your LED to white (aka all RGB values to 255) and decreases 
- *   the blue RGB value by 10 a "numSteps" amount of times. It will decrease the value every "seconds" seconds.
- * ---
- * Example Function Call: `gradientBlue(2,4)` --> this decreases the blue RBG value every 2 seconds, for 4 times
- */
-void gradientBlue(float seconds, int numSteps) {
-  int Red = 250;
-  int Green = 250;
-  int Blue = 250;
+  for (green = 255; green > 0; green --) {
+    blue += 1; 
+    lantern.setColor(time_per_color, lantern.color(red, green, blue));
+  }
 
-  for (int step = 0; step < numSteps; step++) {
-    Blue -= 50;
-    lantern.setColor(seconds, lantern.color(Red, Green, Blue));
+  for (blue = 255; blue > 0; blue --) {
+    red += 1; 
+    lantern.setColor(time_per_color, lantern.color(red, green, blue));
   }
 }
 
