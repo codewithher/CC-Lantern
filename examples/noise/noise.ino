@@ -4,6 +4,12 @@
 
 Lantern lantern;
 
+uint8_t red = 255;
+uint8_t green = 0;
+uint8_t blue = 0;
+float inc = 0.001;
+float start = 0;
+
 void setup() {
     Serial.begin(9600);
     lantern.begin();
@@ -16,6 +22,10 @@ void loop() {
     fireNoise();
 }
 
+/**
+ * @brief Open Serial Monitor to see the noise values.
+ * 
+ */
 void generateNoise() {
     for (float x = 0; x < 10; x += 0.1) {
         for (float y = 0; y < 10; y += 0.1) {
@@ -25,6 +35,10 @@ void generateNoise() {
     }
 }
 
+/**
+ * @brief Maps the noise values to a color wheel.
+ * 
+ */
 void generateNoiseColor() {
     for (float x = 0; x < 10; x += 0.1) {
         for (float y = 0; y < 10; y += 0.1) {
@@ -40,12 +54,6 @@ void generateNoiseColor() {
     }
 }
 
-void checkFireColors() {
-    for (int i = 0; i < 255; i++) {
-        lantern.setColor(0.07, lantern.color(255, i, 0));
-    }
-}
-
 /**
  * @brief Creates a fire effect using perlin noise. Limits rainbow effect 
  * to be within 1/6 of the color wheel, which is red -> yellow.
@@ -53,22 +61,36 @@ void checkFireColors() {
  * https://en.wikipedia.org/wiki/Color_wheel
  */
 void fireNoise() {
-    const uint8_t red_lower = 0;
-    const uint8_t red_upper = 255/6;
-    // perlinNoise produces a number between -1 and 1.
-    // map takes in integers, so we multiply noise by 1000 to get more precision.
-    const int SCALAR = 5;
-    uint8_t green = 0;
-    for (float x = 0; x < 100; x += 0.1) {
-        for (float y = 0; y < 100; y += 0.1) {
-            float value = PerlinNoise::perlinNoise(x, y) * SCALAR;
-            // green += round(value);
-            uint8_t green = map(value, -1 * SCALAR, 1 * SCALAR, 0, 150);
+    lantern.setColor(0.1, lantern.color(red, green, blue));
+    float xoff = start;
+    for (uint8_t x = 0; x < 255; x++) {
+        for (uint8_t y = 0; y < 255; y++) {
+            green = PerlinNoise::perlinNoise(xoff, 0) * 255;
+            green = map(green, 0, 255, 0, 155);
+            lantern.setColor(0.001, lantern.color(255, green, 0));
+            xoff += inc;
             Serial.print("Green: ");
-            Serial.print(green);
-            Serial.print(" Value: ");
-            Serial.println(value);
-            lantern.setColor(0.01, lantern.color(255, green, 0));
+            Serial.println(green);
         }
+        // green  = PerlinNoise::perlinNoise(xoff, 0) * 255;
+        // xoff += inc;
     }
+    start += inc;
+
+    // // perlinNoise produces a number between -1 and 1.
+    // // map takes in integers, so we multiply noise by 1000 to get more precision.
+    // const int SCALAR = 5;
+    // uint8_t green = 0;
+    // for (float x = 0; x < 100; x += 0.1) {
+    //     for (float y = 0; y < 100; y += 0.1) {
+    //         float value = PerlinNoise::perlinNoise(x, y) * SCALAR;
+    //         // green += round(value);
+    //         uint8_t green = map(value, -1 * SCALAR, 1 * SCALAR, 0, 150);
+    //         Serial.print("Green: ");
+    //         Serial.print(green);
+    //         Serial.print(" Value: ");
+    //         Serial.println(value);
+    //         lantern.setColor(0.01, lantern.color(255, green, 0));
+    //     }
+    // }
 }
