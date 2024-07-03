@@ -10,6 +10,8 @@ RNG rng;
 uint8_t red = 255;
 uint8_t green = 0;
 uint8_t blue = 0;
+
+// Perlin Noise parameters.
 float inc = 0.01;         // Controls the speed of the fire effect.
 float start = 0;          // Controls the starting point of the fire effect.
 
@@ -50,8 +52,8 @@ void generateNoiseColor() {
         // We can then remap these values to be between 0 and 255,
         // which is the range of colors.
         const int PRECISION = 1000;
-        float value = rng.perlinNoise(x)*PRECISION;
-        uint8_t color = map(value, -1*PRECISION, 1*PRECISION, 0, 255);
+        float value = rng.perlinNoise(x) * PRECISION;
+        uint8_t color = map(value, -1 * PRECISION, 1 * PRECISION, 0, 255);
         Serial.print("Color: ");
         Serial.print(color);
         Serial.print(" Value: ");
