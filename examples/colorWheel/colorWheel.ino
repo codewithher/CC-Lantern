@@ -66,6 +66,11 @@ void rainbowWheel() {
   }
 }
 
+/**
+ * @brief Sets the color values for our lantern. Demonstrates that any number
+ * fits in the color wheel.
+ * 
+ */
 void checkLightWheelBig() {
   float seconds = 0.5;
 
