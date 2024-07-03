@@ -14,6 +14,7 @@ begin       KEYWORD2
 color       KEYWORD2
 setColor    KEYWORD2
 wait        KEYWORD2
+colorWheel  KEYWORD2
 
 ######################################
 # Constants
