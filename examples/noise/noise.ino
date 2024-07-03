@@ -44,21 +44,19 @@ void generateNoise() {
  */
 void generateNoiseColor() {
     for (float x = 0; x < 10; x += 0.1) {
-        for (float y = 0; y < 10; y += 0.1) {
-            // Perlin noise generates values between -1 and 1 but map requires
-            // integer values, no decimals. To get around this, we multiply the
-            // value by 1000 to get a value between -1000 and 1000.
-            // We can then remap these values to be between 0 and 255,
-            // which is the range of colors.
-            const int PRECISION = 1000;
-            float value = rng.perlinNoise(x, y)*PRECISION;
-            uint8_t color = map(value, -1*PRECISION, 1*PRECISION, 0, 255);
-            Serial.print("Color: ");
-            Serial.print(color);
-            Serial.print(" Value: ");
-            Serial.println(value);
-            lantern.setColor(0.1, lantern.colorWheel(color));
-        }
+        // Perlin noise generates values between -1 and 1 but map requires
+        // integer values, no decimals. To get around this, we multiply the
+        // value by 1000 to get a value between -1000 and 1000.
+        // We can then remap these values to be between 0 and 255,
+        // which is the range of colors.
+        const int PRECISION = 1000;
+        float value = rng.perlinNoise(x)*PRECISION;
+        uint8_t color = map(value, -1*PRECISION, 1*PRECISION, 0, 255);
+        Serial.print("Color: ");
+        Serial.print(color);
+        Serial.print(" Value: ");
+        Serial.println(value);
+        lantern.setColor(0.1, lantern.colorWheel(color));
     }
 }
 
@@ -84,14 +82,12 @@ void fireNoise() {
     float xoff = start;
 
     for (uint8_t x = 0; x < SEED_SIZE; x++) {
-        for (uint8_t y = 0; y < SEED_SIZE; y++) {
-            green = rng.perlinNoise(xoff, 0) * 255;
-            green = map(green, 0, 255, 0, 155);
-            lantern.setColor(0.01, lantern.color(255, green, 0));
-            xoff += inc;
-            Serial.print("Green: ");
-            Serial.println(green);
-        }
+        green = rng.perlinNoise(xoff) * 255;
+        green = map(green, 0, 255, 0, 155);
+        lantern.setColor(0.01, lantern.color(255, green, 0));
+        xoff += inc;
+        Serial.print("Green: ");
+        Serial.println(green);
     }
     start += inc;
 }
