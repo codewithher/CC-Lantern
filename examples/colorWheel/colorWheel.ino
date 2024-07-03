@@ -20,7 +20,8 @@ void setup() {
  */
 void loop() {
   // checkLight();
-  rainbowWheel();
+  // rainbowWheel();
+  checkLightWheelBig();
 }
 
 /**
@@ -37,7 +38,7 @@ void checkLight() {
   int blue = 0;
   float seconds = 0.5;
 
-  lantern.setColor(seconds, lantern.setColor(red, green, blue));
+  lantern.setColor(seconds, lantern.color(red, green, blue));
 }
 
 /**
@@ -63,4 +64,11 @@ void rainbowWheel() {
   for (int i = 0; i < 255; i++) {
     lantern.setColor(0.1, lantern.colorWheel(i));
   }
+}
+
+void checkLightWheelBig() {
+  float seconds = 0.5;
+
+  lantern.setColor(seconds, lantern.colorWheel(-500));
+  lantern.setColor(seconds, lantern.colorWheel(500));
 }
