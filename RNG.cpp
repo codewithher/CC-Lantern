@@ -1,26 +1,26 @@
-#include "PerlinNoise.h"
+#include "RNG.h"
 #include <math.h>
 
-float PerlinNoise::noise(float x, float y) {
+float RNG::noise(float x, float y) {
     int n = (int)x + (int)y * 57;
     n = (n << 13) ^ n;
     return (1.0 - ((n * (n * n * 15731 + 789221) + 1376312589) & 0x7fffffff) / 1073741824.0);
 }
 
-float PerlinNoise::smoothNoise(float x, float y) {
+float RNG::smoothNoise(float x, float y) {
     float corners = (noise(x-1, y-1) + noise(x+1, y-1) + noise(x-1, y+1) + noise(x+1, y+1)) / 16;
     float sides = (noise(x-1, y) + noise(x+1, y) + noise(x, y-1) + noise(x, y+1)) / 8;
     float center = noise(x, y) / 4;
     return corners + sides + center;
 }
 
-float PerlinNoise::interpolate(float a, float b, float x) {
+float RNG::interpolate(float a, float b, float x) {
     float ft = x * 3.1415927;
     float f = (1 - cos(ft)) * 0.5;
     return a * (1 - f) + b * f;
 }
 
-float PerlinNoise::interpolatedNoise(float x, float y) {
+float RNG::interpolatedNoise(float x, float y) {
     int integer_X = (int)x;
     float fractional_X = x - integer_X;
 
@@ -38,7 +38,19 @@ float PerlinNoise::interpolatedNoise(float x, float y) {
     return interpolate(i1, i2, fractional_Y);
 }
 
-float PerlinNoise::perlinNoise(float x, float y) {
+float RNG::perlinNoise(float x) {
+    float total = 0;
+    float persistence = 0.5;
+    int octaves = 4;
+    for (int i = 0; i < octaves; i++) {
+        float frequency = pow(2, i);
+        float amplitude = pow(persistence, i);
+        total += interpolatedNoise(x * frequency, 0) * amplitude;
+    }
+    return total;
+}
+
+float RNG::perlinNoise(float x, float y) {
     float total = 0;
     float persistence = 0.5;
     int octaves = 4;
