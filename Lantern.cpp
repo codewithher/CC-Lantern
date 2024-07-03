@@ -56,3 +56,16 @@ static void Lantern::wait(float seconds) {
 
   delay(int(seconds * 1000));
 }
+
+uint32_t Lantern::colorWheel(uint8_t WheelPos) {
+  WheelPos = 255 - WheelPos;
+  if(WheelPos < 85) {
+    return _pixels.Color(255 - WheelPos * 3, 0, WheelPos * 3);
+  }
+  if(WheelPos < 170) {
+    WheelPos -= 85;
+    return _pixels.Color(0, WheelPos * 3, 255 - WheelPos * 3);
+  }
+  WheelPos -= 170;
+  return _pixels.Color(WheelPos * 3, 255 - WheelPos * 3, 0);
+}

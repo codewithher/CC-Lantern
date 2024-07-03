@@ -88,6 +88,17 @@ class Lantern {
      */
     static void wait(float seconds);
 
+    /**
+     * @brief Get the color of the rainbow at a certain point. Allows us to 
+     * insert any number and get a valid color. Useful in tangent with noise or
+     * random functions. Implementation borrowed from Adafruit's NeoPixel 
+     * example code. https://github.com/adafruit/Adafruit_NeoPixel/
+     * 
+     * @param wheelPos 
+     * @return uint32_t 
+     */
+    uint32_t colorWheel(uint8_t);
+
   private:
     int _pin;
     int _numPixels;
