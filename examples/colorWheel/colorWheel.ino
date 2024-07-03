@@ -37,7 +37,7 @@ void checkLight() {
   int blue = 0;
   float seconds = 0.5;
 
-  lantern.setColor(seconds, lantern.colorWheel(32));
+  lantern.setColor(seconds, lantern.setColor(red, green, blue));
 }
 
 /**
