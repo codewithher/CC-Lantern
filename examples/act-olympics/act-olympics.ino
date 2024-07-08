@@ -312,6 +312,7 @@ void tiltLight_v4() {
       lantern.setPixelColor(i, pattern[(i + shiftAmount) % num_pixels]);
     } else {
       lantern.setPixelColor(i, off);
+    }
   }
 }
 
