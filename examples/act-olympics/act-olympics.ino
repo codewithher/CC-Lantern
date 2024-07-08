@@ -237,32 +237,40 @@ void tiltLight_v2() {
  * 
  */
 void tiltLight_v3() {
-  float x = lantern.motionX();
-  float y = lantern.motionY();
-  float z = lantern.motionZ();
+  const float x = lantern.motionX();
+  const float y = lantern.motionY();
+  const float z = lantern.motionZ();
+  const uint32_t red = 0xFF0000;
+  const uint32_t off = 0x000000;
+  const int num_pixels = 10;
 
-  float theta = atan2(y, x);
-  float radians[10] = {
+  const float theta = atan2(y, x);
+  // to determine the opposite direction (like the ground), we can inverse the 
+  // radians by swapping the left and right half of the array.
+  const float radians[10] = {
       M_PI*1/6,   M_PI*2/6,   M_PI*3/6,   M_PI*4/6,   M_PI*5/6, // Left half
     0-M_PI*5/6, 0-M_PI*4/6, 0-M_PI*3/6, 0-M_PI*2/6, 0-M_PI*1/6  // Right half
   };
   float difference[10] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+  // to increase the amount of pixels that are lit up, we can increase the
+  // threshold value. Try changing it to 0.7 to see 2-3 pixels light up.
+  const float thresold = 0.3;
 
   // assign single pixel based on difference between theta and radians
-  for (int i = 0; i < 10; i++) {
-    float diff = abs(theta - radians[i]);
+  for (int i = 0; i < num_pixels; i++) {
+    const float diff = abs(theta - radians[i]);
     difference[i] = diff;
-    if (diff <= 0.3) {
-      lantern.setPixelColor(i, 0xFF0000);
+    if (diff <= thresold) {
+      lantern.setPixelColor(i, red);
     } else {
-      lantern.setPixelColor(i, 0x000000);
+      lantern.setPixelColor(i, off);
     }
   }
 }
 
 /**
  * @brief Uses polar coordaintes to determine the tilt of the lantern and
- * displays a single pixel the direction closest to the ground.
+ * displays a few pixels at the top of the lantern to represent the sky.
  * 
  */
 void tiltLight_v4() {
