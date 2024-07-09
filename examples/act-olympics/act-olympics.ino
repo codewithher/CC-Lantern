@@ -5,7 +5,10 @@
 #define ARRAY_SIZE(x) (sizeof(x) / sizeof((x)[0]))
 
 void setPixels(uint8_t* pixelArr, uint8_t arrSize, uint32_t color);
+void arrayShift(int* arr, int size, int shiftAmount, bool shiftLeft);
+int findClosest(float* arr, int size, float value);
 float calculatePolarValue();
+void printArray(float* arr, uint8_t size);
 
 void setup() {
   lantern.begin();
@@ -21,7 +24,8 @@ void loop() {
   // tiltLight_v4();
   // tiltLight_v5();
   // tiltLight_v6();
-  tiltLight_v7();
+  // tiltLight_v7();
+  shiftLight();
   // tilt();
   // tiltFireVertical();
   // lantern.clearPixels();
@@ -296,22 +300,77 @@ void tiltLight_v4() {
   float difference[num_pixels] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
   const float pattern[num_pixels] = {
     red, orange, orange, yellow, white, white, yellow, orange, orange, red
-  }
+  };
   // to increase the amount of pixels that are lit up, we can increase the
   // threshold value. 
   //    0.3 = 1 pixel
   //    0.7 = 2-3 pixels
   const float thresold = 0.3;
-  const float shiftAmount = findClosest(radians, num_pixels, theta);
+  // const float shiftAmount = findClosest(radians, num_pixels, theta);
 
-  // assigns colors based on the array shift patterns
+  // // assigns colors based on the array shift patterns
+  // for (int i = 0; i < num_pixels; i++) {
+  //   const float diff = abs(theta - radians[i]);
+  //   difference[i] = diff;
+  //   if (diff <= thresold) {
+  //     lantern.setPixelColor(i, pattern[(i + shiftAmount) % num_pixels]);
+  //   } else {
+  //     lantern.setPixelColor(i, off);
+  //   }
+  // }
+}
+
+/**
+ * @brief Demonstrates usage of light shifting without tilting.
+ * 
+ */
+void shiftLight() {
+  const int num_pixels = 10;
+  const uint32_t red    = 0xFF0000;
+  const uint32_t orange = 0xFF5800;
+  const uint32_t yellow = 0xFFFF00;
+  const uint32_t white  = 0xFFFFFF;
+  const uint32_t off    = 0x000000;
+  const uint32_t pattern[num_pixels] = {
+    red, orange, orange, yellow, white, white, yellow, orange, orange, red
+  };
+  const int shift_amount = 1;
   for (int i = 0; i < num_pixels; i++) {
-    const float diff = abs(theta - radians[i]);
-    difference[i] = diff;
-    if (diff <= thresold) {
-      lantern.setPixelColor(i, pattern[(i + shiftAmount) % num_pixels]);
-    } else {
-      lantern.setPixelColor(i, off);
+      arrayShift(pattern, num_pixels, shift_amount, true);
+      printArray(pattern, num_pixels);
+  
+      // assigns colors
+      for (int j = 0; j < num_pixels; j++) {
+          lantern.setPixelColor(j, pattern[j]);
+      }
+      delay(250);
+  }
+}
+
+void printArray(uint32_t* arr, int size) {
+  for (int i = 0; i < size; i++) {
+    Serial.print(arr[i]);
+    Serial.print(" ");
+  }
+  Serial.println();
+}
+// TODO: convert this to a library function
+void arrayShift(uint32_t* arr, int size, int shiftAmount, bool shiftLeft) {
+  if (shiftLeft) {
+    for (int i = 0; i < shiftAmount; i++) {
+      uint32_t temp = arr[0];
+      for (int j = 0; j < size - 1; j++) {
+        arr[j] = arr[j + 1];
+      }
+      arr[size - 1] = temp;
+    }
+  } else {
+    for (int i = 0; i < shiftAmount; i++) {
+      uint32_t temp = arr[size - 1];
+      for (int j = size - 1; j > 0; j--) {
+        arr[j] = arr[j - 1];
+      }
+      arr[0] = temp;
     }
   }
 }
@@ -561,26 +620,6 @@ void calculateTopAxis(int x, int y, int z, uint8_t& topAxis1, uint8_t& topAxis2)
   }
 }
 
-// TODO: conver this to a library function
-void arrayShift(int* arr, int size, int shiftAmount, bool shiftLeft) {
-  if (shiftLeft) {
-    for (int i = 0; i < shiftAmount; i++) {
-      int temp = arr[0];
-      for (int j = 0; j < size - 1; j++) {
-        arr[j] = arr[j + 1];
-      }
-      arr[size - 1] = temp;
-    }
-  } else {
-    for (int i = 0; i < shiftAmount; i++) {
-      int temp = arr[size - 1];
-      for (int j = size - 1; j > 0; j--) {
-        arr[j] = arr[j - 1];
-      }
-      arr[0] = temp;
-    }
-  }
-}
 
 float convertToPolar(float x, float y) {
   return atan2(y, x);
