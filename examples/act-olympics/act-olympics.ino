@@ -21,11 +21,11 @@ void loop() {
   // tiltLight();
   // tiltLight_v2();
   // tiltLight_v3();
-  // tiltLight_v4();
+  tiltLight_v4();
   // tiltLight_v5();
   // tiltLight_v6();
   // tiltLight_v7();
-  shiftLight();
+  // shiftLight();
   // tilt();
   // tiltFireVertical();
   // lantern.clearPixels();
@@ -298,26 +298,15 @@ void tiltLight_v4() {
     0-M_PI*5/6, 0-M_PI*4/6, 0-M_PI*3/6, 0-M_PI*2/6, 0-M_PI*1/6  // Right half
   };
   float difference[num_pixels] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
-  const float pattern[num_pixels] = {
+  const uint32_t pattern[num_pixels] = {
     red, orange, orange, yellow, white, white, yellow, orange, orange, red
   };
-  // to increase the amount of pixels that are lit up, we can increase the
-  // threshold value. 
-  //    0.3 = 1 pixel
-  //    0.7 = 2-3 pixels
-  const float thresold = 0.3;
-  // const float shiftAmount = findClosest(radians, num_pixels, theta);
-
-  // // assigns colors based on the array shift patterns
-  // for (int i = 0; i < num_pixels; i++) {
-  //   const float diff = abs(theta - radians[i]);
-  //   difference[i] = diff;
-  //   if (diff <= thresold) {
-  //     lantern.setPixelColor(i, pattern[(i + shiftAmount) % num_pixels]);
-  //   } else {
-  //     lantern.setPixelColor(i, off);
-  //   }
-  // }
+  const int top_index = findClosest(radians, num_pixels, theta);
+  const int shift_amount = top_index;
+  Serial.print("shift_amount: ");
+  Serial.println(shift_amount);
+  arrayShift(pattern, num_pixels, shift_amount, false);
+  displayPattern(pattern, num_pixels);
 }
 
 /**
@@ -391,6 +380,14 @@ void arrayShift(uint32_t* arr, int size, int shiftAmount, bool shiftLeft) {
   }
 }
 
+/**
+ * @brief Finds the closest value in an array to a specified value.
+ * 
+ * @param arr 
+ * @param size 
+ * @param value 
+ * @return int 
+ */
 int findClosest(float* arr, int size, float value) {
   int closest = 0;
   float minDiff = abs(value - arr[0]);
