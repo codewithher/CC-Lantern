@@ -12,7 +12,7 @@ uint8_t green = 0;
 uint8_t blue = 0;
 
 // Perlin Noise parameters.
-float inc = 0.01;         // Controls the speed of the fire effect.
+float inc = 0.1;         // Controls the speed of the fire effect.
 float start = 0;          // Controls the starting point of the fire effect.
 
 void setup() {
