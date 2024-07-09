@@ -338,15 +338,23 @@ void shiftLight() {
   for (int i = 0; i < num_pixels; i++) {
       arrayShift(pattern, num_pixels, shift_amount, true);
       printArray(pattern, num_pixels);
-  
-      // assigns colors
-      for (int j = 0; j < num_pixels; j++) {
-          lantern.setPixelColor(j, pattern[j]);
-      }
+      displayPattern(pattern, num_pixels);     
       delay(250);
   }
 }
 
+void displayPattern(uint32_t* pattern, int num_pixels) {
+  for (int j = 0; j < num_pixels; j++) {
+    lantern.setPixelColor(j, pattern[j]);
+  }
+}
+
+/**
+ * @brief Prints the array as is
+ * 
+ * @param arr 
+ * @param size 
+ */
 void printArray(uint32_t* arr, int size) {
   for (int i = 0; i < size; i++) {
     Serial.print(arr[i]);
@@ -354,7 +362,15 @@ void printArray(uint32_t* arr, int size) {
   }
   Serial.println();
 }
-// TODO: convert this to a library function
+
+/**
+ * @brief Shifts the array by a specified amount to the left or right.
+ * 
+ * @param arr 
+ * @param size 
+ * @param shiftAmount 
+ * @param shiftLeft 
+ */
 void arrayShift(uint32_t* arr, int size, int shiftAmount, bool shiftLeft) {
   if (shiftLeft) {
     for (int i = 0; i < shiftAmount; i++) {
