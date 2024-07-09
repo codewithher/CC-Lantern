@@ -402,146 +402,6 @@ int findClosest(float* arr, int size, float value) {
 }
 
 /**
- * @brief Uses polar coordinates to determine the tilt of the lantern and 
- * displays a pixel for the sky and a for the ground.
- * 
- */
-void tiltLight_v5() {
-  float x = lantern.motionX();
-  float y = lantern.motionY();
-  float z = lantern.motionZ();
-
-  float theta = atan2(y, x);
-  // original radians for sky pointer
-  float radiansSky[10] = {
-      M_PI*1/6,   M_PI*2/6,   M_PI*3/6,   M_PI*4/6,   M_PI*5/6,           // Left half
-    0-M_PI*5/6, 0-M_PI*4/6, 0-M_PI*3/6, 0-M_PI*2/6, 0-M_PI*1/6  // Right half
-  };
-  // inverse radians to determine the direction closest to the ground
-  float radiansGnd[10] = {
-    0-M_PI*5/6, 0-M_PI*4/6, 0-M_PI*3/6, 0-M_PI*2/6, 0-M_PI*1/6,  // Right half
-      M_PI*1/6,   M_PI*2/6,   M_PI*3/6,   M_PI*4/6,   M_PI*5/6   // Left half
-  };
-  float differenceSky[10]  = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
-  float differenceGnd[10]  = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
-
-  // assign single pixel based on difference between theta and radians
-  for (int i = 0; i < 10; i++) {
-    float diffSky = abs(theta - radiansSky[i]);
-    float diffGnd = abs(theta - radiansGnd[i]);
-    differenceSky[i] = diffSky;
-    differenceGnd[i] = diffGnd;
-    if (diffSky <= 0.3) {
-      lantern.setPixelColor(i, 0xFF0000);
-    } else {
-      lantern.setPixelColor(i, 0x000000);
-    }
-    if (diffGnd <= 0.3) {
-      lantern.setPixelColor(i, 0x00FF00);
-    } else {
-      lantern.setPixelColor(i, 0x000000);
-    }
-  }
-}
-
-/**
- * @brief Uses polar coordinates to determine the tilt of the lantern and
- * splits the lantern into 3 categories: sky, ground, and in between. The sky
- * will have red, the ground will have green, and the in between will have no 
- * color.
- * 
- */
-void tiltLight_v6() {
-  float x = lantern.motionX();
-  float y = lantern.motionY();
-  float z = lantern.motionZ();
-
-  float theta = atan2(y, x);
-  // original radians for sky pointer
-  float radiansSky[10] = {
-      M_PI*1/6,   M_PI*2/6,   M_PI*3/6,   M_PI*4/6,   M_PI*5/6,           // Left half
-    0-M_PI*5/6, 0-M_PI*4/6, 0-M_PI*3/6, 0-M_PI*2/6, 0-M_PI*1/6  // Right half
-  };
-  // inverse radians to determine the direction closest to the ground
-  float radiansGnd[10] = {
-    0-M_PI*5/6, 0-M_PI*4/6, 0-M_PI*3/6, 0-M_PI*2/6, 0-M_PI*1/6,  // Right half
-      M_PI*1/6,   M_PI*2/6,   M_PI*3/6,   M_PI*4/6,   M_PI*5/6   // Left half
-  };
-  float differenceSky[10]  = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
-  float differenceGnd[10]  = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
-
-  // assign single pixel based on difference between theta and radians
-  for (int i = 0; i < 10; i++) {
-    float diffSky = abs(theta - radiansSky[i]);
-    float diffGnd = abs(theta - radiansGnd[i]);
-    differenceSky[i] = diffSky;
-    differenceGnd[i] = diffGnd;
-    if (diffSky <= 0.7) {
-      lantern.setPixelColor(i, 0xFF0000);
-    } else {
-      lantern.setPixelColor(i, 0x000000);
-    }
-    if (diffGnd <= 0.7) {
-      lantern.setPixelColor(i, 0x00FF00);
-    } else {
-      lantern.setPixelColor(i, 0x000000);
-    }
-  }
-}
-
-/**
- * @brief Uses polar coordinates to determine the tilt of the lantern and
- * splits the lantern into 3 categories: sky, ground, and in between. The sky
- * will have red, the ground will have green, and the in between will have blue.
- * 
- */
-void tiltLight_v7() {
-  float x = lantern.motionX();
-  float y = lantern.motionY();
-  float z = lantern.motionZ();
-
-  float theta = atan2(y, x);
-  // original radians for sky pointer
-  float radiansSky[10] = {
-      M_PI*1/6,   M_PI*2/6,   M_PI*3/6,   M_PI*4/6,   M_PI*5/6,           // Left half
-    0-M_PI*5/6, 0-M_PI*4/6, 0-M_PI*3/6, 0-M_PI*2/6, 0-M_PI*1/6  // Right half
-  };
-  // inverse radians to determine the direction closest to the ground
-  float radiansGnd[10] = {
-    0-M_PI*5/6, 0-M_PI*4/6, 0-M_PI*3/6, 0-M_PI*2/6, 0-M_PI*1/6,  // Right half
-      M_PI*1/6,   M_PI*2/6,   M_PI*3/6,   M_PI*4/6,   M_PI*5/6   // Left half
-  };
-  float differenceSky[10]  = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
-  float differenceGnd[10]  = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
-
-  // assign single pixel based on difference between theta and radians
-  for (int i = 0; i < 10; i++) {
-    float diffSky = abs(theta - radiansSky[i]);
-    float diffGnd = abs(theta - radiansGnd[i]);
-    differenceSky[i] = diffSky;
-    differenceGnd[i] = diffGnd;
-    if (diffSky <= 0.7) {
-      lantern.setPixelColor(i, 0xFF0000);
-    }
-    if (diffGnd <= 0.7) {
-      lantern.setPixelColor(i, 0x00FF00);
-    } 
-    if (diffSky > 0.7 && diffGnd > 0.7) {
-      lantern.setPixelColor(i, 0x0000FF);
-    }
-  }
-}
-
-/**
- * @brief Uses polar coordiantes to determine the tilt of the lantern and 
- * uses some randomness to add flickering add to the torch effect.
- * 
- */
-void tiltLight_v8() {
-
-}
-
-/**
  * @brief Uses perlin noise to apply a flickering effect to the lantern.
  * 
  */
@@ -565,6 +425,10 @@ void assignPixels(uint32_t* colors) {
   }
 }
 
+/**
+ * @brief Uses thresholds to determine the heat of the pixels based on the tilt
+ * 
+ */
 void tiltFire() {
   uint32_t coolHeat = 0xFF0000; // Red, representing cooler flames at the top
   uint32_t warmHeat = 0xFF5800; // Orange, representing warm flames
@@ -633,15 +497,10 @@ void calculateTopAxis(int x, int y, int z, uint8_t& topAxis1, uint8_t& topAxis2)
   }
 }
 
-
-float convertToPolar(float x, float y) {
-  return atan2(y, x);
-}
-
 float calculatePolarValue() {
   float x = lantern.motionX();
   float y = lantern.motionY();
-  float polarValue = convertToPolar(x, y);
+  float polarValue = atan2(y, x);
   return polarValue;
 }
 
@@ -660,27 +519,4 @@ void findMaxAxis() {
   } else if (maxAxis == lantern.motionZ()) {
     topAxis = 2;
   }
-}
-
-void pendulum() {
-  // int pos = 0;
-  // float increment = 2 * M_PI / 10;
-  // MomentumH = 0;
-  // MomentumV = 0;
-
-  // const float friction = 0.99;
-  // const float swing = 10;
-  // const float gravity = 50;
-  // const halfWidth = 1.25;
-
-  // TorqueH = cos(pos * increment);
-  // TorqueV = sin(pos * increment);
-
-  // MomentumH += TorqueH * motionX() / swing;
-  // MomentumV += TorqueV * motionY() / swing;
-
-  // MomentumH *= friction;
-  // MomentumV *= friction;
-
-  // pos += MomentumH + MomentumV;
 }
