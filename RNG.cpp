@@ -1,5 +1,6 @@
 #include "RNG.h"
 #include <math.h>
+#include <stdlib.h>
 
 float RNG::noise(float x, float y) {
   int n = (int)x + (int)y * 57;
@@ -71,4 +72,4 @@ float RNG::random(float min, float max) {
 
 int RNG::random(int min, int max) {
   return min + rand() % (max - min + 1);
-} 
+}
