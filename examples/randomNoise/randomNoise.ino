@@ -18,13 +18,39 @@ float start = 0;         // Controls the starting point of the fire effect.
 void setup() {
   Serial.begin(9600);
   lantern.begin();
-  lantern.setBrightness(5);
+  lantern.setBrightness(5);   // Set brightness to 2% (5/255).
 }
 
 void loop() {
+  randomColors();
   // generateNoise();
   // generateNoiseColor();
-  fireNoise();
+  // fireNoise();
+}
+
+void randomNumbers() {
+  // Generate a random float between 0 and 1.
+  float randomFloat = rng.random(0, 1);
+  Serial.println(randomFloat);
+
+  // Generate a random int between 0 and 10.
+  int randomInt = rng.random(0, 10);
+  Serial.println(randomInt);
+
+  for (int i = 0; i < 10; i++) {
+    // Generate a random float between 0 and 1.
+    float randomFloat = rng.random(0, 1);
+    Serial.println(randomFloat);
+  }
+}
+
+void randomColors() {
+  const float DURATION = 0.1;
+  for (int i = 0; i < 10; i++) {
+    // Generate a random color.
+    uint32_t randomColor = lantern.colorWheel(rng.random(0, 255));
+    lantern.setColor(DURATION, randomColor);
+  }
 }
 
 /**

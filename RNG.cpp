@@ -64,3 +64,11 @@ float RNG::perlinNoise(float x, float y) {
 
   return total;
 }
+
+float RNG::random(float min, float max) {
+  return min + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (max - min)));
+}
+
+int RNG::random(int min, int max) {
+  return min + rand() % (max - min + 1);
+} 
