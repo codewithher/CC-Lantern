@@ -5,6 +5,7 @@
 ######################################
 
 Lantern KEYWORD1
+RNG     KEYWORD1
 
 ######################################
 # Methods and Functions
