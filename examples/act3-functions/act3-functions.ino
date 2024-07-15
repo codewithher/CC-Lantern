@@ -25,7 +25,7 @@ void loop() {
  */
 void rainbow(float seconds) {
   int red = 0; 
-  int green = 0; 
+  int green = 0;
   int blue = 0;
 
   // Set default value of 0.25 if an invalid number is given
@@ -39,17 +39,17 @@ void rainbow(float seconds) {
   const float time_per_color = seconds / total_steps;   // Time for each color step  
 
   for (red = 255; red > 0; red--) {
-    green += 1; 
+    green += 1;
     lantern.setColor(time_per_color, lantern.color(red, green, blue));
   }
 
   for (green = 255; green > 0; green--) {
-    blue += 1; 
+    blue += 1;
     lantern.setColor(time_per_color, lantern.color(red, green, blue));
   }
 
   for (blue = 255; blue > 0; blue--) {
-    red += 1; 
+    red += 1;
     lantern.setColor(time_per_color, lantern.color(red, green, blue));
   }
 }
