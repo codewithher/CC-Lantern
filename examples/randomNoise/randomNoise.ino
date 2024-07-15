@@ -45,7 +45,7 @@ void randomNumbers() {
 }
 
 void randomColors() {
-  const float DURATION = 0.1;
+  const float DURATION = 1;
   for (int i = 0; i < 10; i++) {
     // Generate a random color.
     uint32_t randomColor = lantern.colorWheel(rng.random(0, 255));
