@@ -22,12 +22,17 @@ void setup() {
 }
 
 void loop() {
+  // randomNumbers();
   randomColors();
   // generateNoise();
   // generateNoiseColor();
   // fireNoise();
 }
 
+/**
+ * @brief Generate and print random numbers using the random function.
+ * 
+ */
 void randomNumbers() {
   // Generate a random float between 0 and 1.
   float randomFloat = rng.random(0, 1);
@@ -44,11 +49,16 @@ void randomNumbers() {
   }
 }
 
+/**
+ * @brief Generate completely random colors using the colorWheel function.
+ * 
+ */
 void randomColors() {
   const float DURATION = 1;
   for (int i = 0; i < 10; i++) {
     // Generate a random color.
     uint32_t randomColor = lantern.colorWheel(rng.random(0, 255));
+    Serial.println(randomColor);
     lantern.setColor(DURATION, randomColor);
   }
 }
