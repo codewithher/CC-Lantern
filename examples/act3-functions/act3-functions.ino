@@ -28,11 +28,6 @@ void rainbow(float seconds) {
   int green = 0;
   int blue = 0;
 
-  // Set default value of 0.25 if an invalid number is given
-  if (seconds <= 0) {
-    seconds = 0.25;
-  }
-
   const int steps = 255;  // Number of steps for each color in the LED
   const int num_led = 3;  // Number of colors per LED (RGB)  
   const int total_steps = steps * num_led;              // Total steps in the gradient  
@@ -57,8 +52,7 @@ void rainbow(float seconds) {
 void rainbowWheel() {
   const float duration = 1;
   const int steps = 255;
-  for (int i = 0; i < 255; i++) {
-    // Generate a random color.
+  for (int i = 0; i < steps; i++) {
     color current_color = lantern.colorWheel(i);
     Serial.println(current_color);
     lantern.setColor(duration, current_color);
