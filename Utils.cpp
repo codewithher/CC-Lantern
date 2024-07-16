@@ -68,3 +68,16 @@ void Utils::printArray(float* arr, uint8_t size) {
 int Utils::arraySize(int* arr) {
   return sizeof(arr) / sizeof(arr[0]);
 }
+
+int Utils::findClosest(float* arr, int size, float value) {
+  int closest = 0;
+  float minDiff = abs(value - arr[0]);
+  for (int i = 1; i < size; i++) {
+    float diff = abs(value - arr[i]);
+    if (diff < minDiff) {
+      minDiff = diff;
+      closest = i;
+    }
+  }
+  return closest;
+}

@@ -9,6 +9,16 @@ class Utils {
     float calculatePolarValue();
     void printArray(float* arr, uint8_t size);
     int arraySize(int* arr);
+    
+    /**
+     * @brief Finds the closest value in an array to a specified value.
+     * 
+     * @param arr 
+     * @param size 
+     * @param value 
+     * @return int 
+     */
+    int findClosest(float* arr, int size, float value) {
 };
 
 #endif
