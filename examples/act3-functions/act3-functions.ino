@@ -53,3 +53,14 @@ void rainbow(float seconds) {
     lantern.setColor(time_per_color, lantern.color(red, green, blue));
   }
 }
+
+void rainbowWheel() {
+  const float duration = 1;
+  const int steps = 255;
+  for (int i = 0; i < 255; i++) {
+    // Generate a random color.
+    color current_color = lantern.colorWheel(i);
+    Serial.println(current_color);
+    lantern.setColor(duration, current_color);
+  }
+}
