@@ -1,5 +1,5 @@
 /**
- * Activity 3: Make your own patterns!
+ * Activity 3: Rainbows are the most colorful!
  */
 
 #include <Lantern.h>
@@ -15,13 +15,13 @@ void loop() {
 }
 
 /**
- * Parameters:
- *   - "seconds": a number that describes how long you want the rainbow gradient to be
- * ---
- * Function Description: This function rotates your LED through the RGB colors (from red to green to blue) by 
- * decreasing each pixel by a value of 1. It will go through the entire rainbow of colors is "seconds" seconds.
- * ---
- * Example Function Call: `rainbowStep(30)` --> creates a rainbow that lasts 30 seconds. 
+ * @brief This function rotates your LED through the RGB colors (from red to 
+ * green to blue) by decreasing each pixel by a value of 1. It will go through 
+ * the entire rainbow of colors is "seconds" seconds.
+ * 
+ * Ex: `rainbowStep(30)` --> creates a rainbow that lasts 30 seconds. 
+ * 
+ * @param seconds a number that describes how long you want the rainbow gradient to be
  */
 void rainbow(float seconds) {
   int red = 0; 
@@ -49,9 +49,17 @@ void rainbow(float seconds) {
   }
 }
 
+/**
+ * @brief This is the same as the `rainbow()` function, but it's easier to read
+ * because we moved all the color calculations to the `colorWheel()` function.
+ * 
+ * Use this one for any rainbow patterns you want to use!
+ * 
+ */
 void rainbowWheel() {
   const float duration = 1;
   const int steps = 255;
+
   for (int i = 0; i < steps; i++) {
     color current_color = lantern.colorWheel(i);
     Serial.println(current_color);
