@@ -19,8 +19,10 @@ void setup() {
 
 void loop() {
   if (lantern.leftButton()) {
+    // print out the accelerometer values
     tiltAccel();
   } else if (lantern.rightButton()) {
+    // print out the tilt angle
     tiltAngle();
   }
   tiltLight();
