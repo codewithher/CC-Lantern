@@ -13,6 +13,11 @@
 
 #include "Arduino.h"
 #include "Adafruit_NeoPixel.h"
+#include "Utils.h"
+
+using cpx = CircuitPlayground;
+using color = uint32_t;
+using byte = uint8_t;
 
 class Lantern {
   public:
@@ -32,7 +37,7 @@ class Lantern {
      * @param brightness takes input from 0-255 and controls brightness from 
      * darkest `0` to brightest `255`.
      */
-    Lantern(uint8_t pin, uint8_t numLed, uint8_t brightness);
+    Lantern(byte pin, byte numLed, byte brightness);
 
     /**
      * @brief Starts or restarts LED at current brightness.
@@ -47,7 +52,7 @@ class Lantern {
      * @param brightness takes input from 0-255 and controls brightness from 
      * darkest `0` to brightest `255`.
      */
-    void setBrightness(uint8_t brightness);
+    void setBrightness(byte brightness);
 
     /**
      * @brief Packs red, green, blue values into `uint32` to play nicely with 
@@ -58,7 +63,7 @@ class Lantern {
      * @param blue 
      * @return uint32_t 
      */
-    uint32_t color(uint8_t red, uint8_t green, uint8_t blue);
+    color color(byte red, byte green, byte blue);
 
     /**
      * @brief Set the color using just seconds, red, green, and blue
@@ -68,7 +73,7 @@ class Lantern {
      * @param green how green your color will be
      * @param blue how blue your color will be
      */
-    void setColor(float seconds, uint8_t red, uint8_t green, uint8_t blue);
+    void setColor(float seconds, byte red, byte green, byte blue);
 
     /**
      * @brief Set the color using Adafruit's `Color()` function.
@@ -76,7 +81,7 @@ class Lantern {
      * @param seconds how long the light will stay that color
      * @param color packed RGB color value for the light
      */
-    void setColor(float seconds, uint32_t color);
+    void setColor(float seconds, color color);
 
     /**
      * @brief Wait for the amount of seconds before continuing. Used to hold 
@@ -97,7 +102,7 @@ class Lantern {
      * @param wheelPos 
      * @return uint32_t 
      */
-    uint32_t colorWheel(uint8_t);
+    color colorWheel(byte);
 
   private:
     int _pin;
