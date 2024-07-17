@@ -12,6 +12,7 @@ Lantern lantern;
  */
 void setup() {
   lantern.begin();
+  lantern.setBrightness(5);
 }
 
 /**

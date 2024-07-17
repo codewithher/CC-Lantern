@@ -1,4 +1,5 @@
 #include "Lantern.h"
+#include "Utils.h"
 
 Lantern::Lantern() {
   _pin  = 8;            // default is set to #8, integrated neopixel.
@@ -23,7 +24,7 @@ void Lantern::setBrightness(byte brightness) {
   _pixels.setBrightness(brightness);  
 }
 
-color Lantern::color(byte red, byte green, byte blue) {
+color Lantern::rgb(byte red, byte green, byte blue) {
   // The red, green, and blue values are bitwise ANDed with 0xFF to ensure they 
   // fit within the range of 0-255, and then left-shifted and combined using 
   // bitwise OR operations.

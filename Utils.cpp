@@ -1,13 +1,13 @@
 
 #include "Utils.h"
+#include "Arduino.h"
 #include <Adafruit_CircuitPlayground.h>
 #include <math.h>
 
 #define lantern CircuitPlayground
-#define color uint32_t
 
-void Utils::setPixels(uint8_t* pixelArr, uint8_t arrSize, uint32_t color) {
-  for (uint8_t i = 0; i < arrSize; i++) {
+void Utils::setPixels(int* pixelArr, int arrSize, color color) {
+  for (int i = 0; i < arrSize; i++) {
       lantern.setPixelColor(pixelArr[i], color);
   }
 }
@@ -57,8 +57,8 @@ float Utils::calculatePolarValue() {
   return polarValue;
 }
 
-void Utils::printArray(float* arr, uint8_t size) {
-  for (uint8_t i = 0; i < size; i++) {
+void Utils::printArray(float* arr, int size) {
+  for (int i = 0; i < size; i++) {
     Serial.print(arr[i]);
     Serial.print(" ");
   }
