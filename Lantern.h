@@ -14,6 +14,8 @@
 #include "Arduino.h"
 #include "Adafruit_NeoPixel.h"
 
+using color = uint32_t;
+
 class Lantern {
   public:
     
