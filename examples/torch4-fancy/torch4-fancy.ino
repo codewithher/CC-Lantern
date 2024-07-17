@@ -7,11 +7,11 @@
 using color = uint32_t;
 using byte = uint8_t;
 
-color coolHeat = 0xFF0000; // Red, representing cooler flames at the top
-color warmHeat = 0xFF5800; // Orange, representing warm flames
-color hotHeat = 0xFFFF00;  // Yellow, representing hot flames
-color peakHeat = 0xFFFFFF; // White, representing the peak heat at the bottom
-color off = 0x000000;      // Off, representing no heat
+color red     = 0xFF0000; // Red, representing cooler flames at the top
+color orange  = 0xFF5800; // Orange, representing warm flames
+color yellow  = 0xFFFF00; // Yellow, representing hot flames
+color white   = 0xFFFFFF; // White, representing the peak heat at the bottom
+color off     = 0x000000; // Off, representing no heat
 
 const int num_pixels = 10;
 
@@ -54,7 +54,7 @@ void skyPointer() {
     const float diff = abs(theta - radians[i]);
     difference[i] = diff;
     if (diff <= threshold) {
-      lantern.setPixelColor(i, coolHeat);
+      lantern.setPixelColor(i, red);
     } else {
       lantern.setPixelColor(i, off);
     }
@@ -65,47 +65,40 @@ void skyPointer() {
  * @brief Uses thresholds to determine the heat of the pixels based on the tilt
  * 
  */
-void tiltFire() {
-  const float x = lantern.motionX();
-  const float y = lantern.motionY();
+void tiltFire() {  float x = lantern.motionX();
+  float y = lantern.motionY();
+  float z = lantern.motionZ();
 
-  const int coolThreshold = 1;
-  const int warmThreshold = 1.5;
-  const int hotThreshold = 2;
-  
   float theta = atan2(y, x);
-  // initial values
-  color colors[10] = {off, off, off, off, off, off, off, off, off, off};
-  float difference[10] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
-  float radians[10] = {
-    M_PI*1/6, M_PI*2/6, M_PI*3/6, M_PI*4/6, M_PI*5/6,           // Left half
+  // original radians for sky pointer
+  float radiansSky[10] = {
+      M_PI*1/6,   M_PI*2/6,   M_PI*3/6,   M_PI*4/6,   M_PI*5/6,           // Left half
     0-M_PI*5/6, 0-M_PI*4/6, 0-M_PI*3/6, 0-M_PI*2/6, 0-M_PI*1/6  // Right half
-    // M_PI*6/6, M_PI*7/6, M_PI*8/6, M_PI*9/6, M_PI*10/6           // Right half
   };
+  // inverse radians to determine the direction closest to the ground
+  float radiansGnd[10] = {
+    0-M_PI*5/6, 0-M_PI*4/6, 0-M_PI*3/6, 0-M_PI*2/6, 0-M_PI*1/6,  // Right half
+      M_PI*1/6,   M_PI*2/6,   M_PI*3/6,   M_PI*4/6,   M_PI*5/6   // Left half
+  };
+  float differenceSky[10]  = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+  float differenceGnd[10]  = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 
-  // assign colors based on difference between theta and radians
+  // assign single pixel based on difference between theta and radians
   for (int i = 0; i < 10; i++) {
-    float diff = abs(theta - radians[i]);
-    difference[i] = diff;
-    if (diff <= coolThreshold) {
-      colors[i] = coolHeat;
-    } else if (diff <= warmThreshold) {
-      colors[i] = warmHeat;
-    } else if (diff <= hotThreshold) {
-      colors[i] = hotHeat;
-    } else {
-      colors[i] = peakHeat;
+    float diffSky = abs(theta - radiansSky[i]);
+    float diffGnd = abs(theta - radiansGnd[i]);
+    differenceSky[i] = diffSky;
+    differenceGnd[i] = diffGnd;
+    if (diffSky <= 0.7) {
+      lantern.setPixelColor(i, red);
+    }
+    if (diffGnd <= 0.7) {
+      lantern.setPixelColor(i, white);
+    } 
+    if (diffSky > 0.7 && diffGnd > 0.7) {
+      lantern.setPixelColor(i, yellow);
     }
   }
-
-  Serial.print("Theta: ");
-  Serial.print(theta);
-  Serial.print("\t");
-  printArray(difference, 10);
-  Serial.print("Radian: ");
-  printArray(radians, 10);
-  Serial.println();
-  setPixelColors(colors);
 }
 
 /**
