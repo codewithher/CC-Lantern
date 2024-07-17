@@ -75,6 +75,7 @@ void fire_loading() {
     white, yellow, yellow, orange, red
   };
 
+  // Manually set each pixel color in the array then wait 100ms
   // for (starting value; condition; step size)
   for (int i = 0; i < arraySize(colors); i++) {
     lantern.setPixelColor(i, colors[i]);
