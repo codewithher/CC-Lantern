@@ -11,7 +11,8 @@ void setup() {
 }
 
 void loop() {
-  rainbow(20);
+  // rainbow(20);
+  rainbowWheel(20);
 }
 
 /**
@@ -56,13 +57,15 @@ void rainbow(float seconds) {
  * Use this one for any rainbow patterns you want to use!
  * 
  */
-void rainbowWheel() {
-  const float duration = 1;
-  const int steps = 255;
+void rainbowWheel(float seconds) {
+  const int steps = 255;  // Number of steps for each color in the LED
+  const int num_led = 3;  // Number of colors per LED (RGB)  
+  const int total_steps = steps * num_led;              // Total steps in the gradient  
+  const float time_per_color = seconds / total_steps;   // Time for each color step  
 
   for (int i = 0; i < steps; i++) {
     color current_color = lantern.colorWheel(i);
     Serial.println(current_color);
-    lantern.setColor(duration, current_color);
+    lantern.setColor(time_per_color, current_color);
   }
 }
