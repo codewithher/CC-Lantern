@@ -15,7 +15,6 @@
 #include "Adafruit_NeoPixel.h"
 #include "Adafruit_CircuitPlayground.h"
 
-#define cpx CircuitPlayground;
 using color = uint32_t;
 using byte = uint8_t;
 

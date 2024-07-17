@@ -1,5 +1,4 @@
 #include "Lantern.h"
-#include "Utils.h"
 
 Lantern::Lantern() {
   _pin  = 8;            // default is set to #8, integrated neopixel.
