@@ -63,7 +63,7 @@ class Lantern {
      * @param blue 
      * @return uint32_t 
      */
-    color color(byte red, byte green, byte blue);
+    color rgb(byte red, byte green, byte blue);
 
     /**
      * @brief Set the color using just seconds, red, green, and blue

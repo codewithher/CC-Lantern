@@ -32,10 +32,10 @@ void loop() {
  */
 void checkLight() {
   // Set color values here! Colors range from 0 to 255
-  int red = 0;
-  int green = 150;
-  int blue = 0;
+  byte red = 0;
+  byte green = 150;
+  byte blue = 0;
   float seconds = 0.5;
 
-  lantern.setColor(seconds, lantern.color(red, green, blue));
+  lantern.setColor(seconds, lantern.rgb(red, green, blue));
 }

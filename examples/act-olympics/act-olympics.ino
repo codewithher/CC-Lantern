@@ -64,9 +64,9 @@ void fire() {
  * 
  */
 void fire_v2() {
-  uint32_t orange = 0xFF5800;
-  uint32_t yellow = 0xFFFF00;
-  uint32_t white = 0xFFFFFF;
+  color orange = 0xFF5800;
+  color yellow = 0xFFFF00;
+  color white = 0xFFFFFF;
 
   int orangeArr[] = {0,9};
   int yellowArr[] = {1,2,3,6,7,8};

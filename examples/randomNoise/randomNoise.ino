@@ -109,7 +109,7 @@ void generateNoiseColor() {
  * 
  */
 void fireNoise() {
-  lantern.setColor(0.1, lantern.color(red, green, blue));
+  lantern.setColor(0.1, lantern.rgb(red, green, blue));
   // Set the starting seed for the fire effect. The max value for the seed is
   // arbitrarily set to 255. It can be any value, but larger values increases
   // the number of random values generated.
@@ -122,7 +122,7 @@ void fireNoise() {
   for (int x = 0; x < SEED_SIZE; x++) {
     green = rng.perlinNoise(xoff) * 255;
     green = map(green, 0, 255, 0, 155);
-    lantern.setColor(0.01, lantern.color(255, green, 0));
+    lantern.setColor(0.01, lantern.rgb(255, green, 0));
     xoff += inc;
     Serial.print("Green: ");
     Serial.println(green);

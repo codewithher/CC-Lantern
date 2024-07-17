@@ -16,26 +16,26 @@ void loop() {
   greenlight(1);
 }
 
-void redlight(int seconds) {
-  int Red = 150;
-  int Green = 0;
-  int Blue = 0;
+void redlight(float seconds) {
+  byte red = 150;
+  byte green = 0;
+  byte blue = 0;
   
-  lantern.setColor(seconds, lantern.color(Red, Green, Blue));
+  lantern.setColor(seconds, lantern.rgb(red, green, blue));
 }
 
-void yellowlight(int seconds) {
-  int Red = 150;
-  int Green = 150;
-  int Blue = 0;
+void yellowlight(float seconds) {
+  byte red = 150;
+  byte green = 150;
+  byte blue = 0;
   
-  lantern.setColor(seconds, lantern.color(Red, Green, Blue));
+  lantern.setColor(seconds, lantern.rgb(red, green, blue));
 }
 
-void greenlight(int seconds) {
-  int Red = 0;
-  int Green = 150;
-  int Blue = 0;
+void greenlight(float seconds) {
+  byte red = 0;
+  byte green = 150;
+  byte blue = 0;
   
-  lantern.setColor(seconds, lantern.color(Red, Green, Blue));
+  lantern.setColor(seconds, lantern.rgb(red, green, blue));
 }
