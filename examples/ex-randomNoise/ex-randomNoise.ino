@@ -23,9 +23,9 @@ void setup() {
 
 void loop() {
   // randomNumbers();
-  randomColors();
+  // randomColors();
   // generateNoise();
-  // generateNoiseColor();
+  generateNoiseColor();
   // fireNoise();
 }
 

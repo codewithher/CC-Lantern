@@ -19,8 +19,9 @@ void setup() {
  * 
  */
 void loop() {
-  // checkLight();
-  // rainbowWheel();
+  checkLight();
+  checkLightWheel();
+  rainbowWheel();
   checkLightWheelBig();
 }
 
@@ -39,6 +40,7 @@ void checkLight() {
   float seconds = 0.5;
 
   lantern.setColor(seconds, lantern.rgb(red, green, blue));
+  lantern.wait(1);
 }
 
 /**
@@ -52,7 +54,8 @@ void checkLight() {
  */
 void checkLightWheel() {
   // Try changing the number to any other number you want!
-  lantern.setColor(0.5, lantern.colorWheel(0));
+  lantern.setColor(0.5, lantern.colorWheel(100));
+  lantern.wait(1);
 }
 
 /**
@@ -64,6 +67,7 @@ void rainbowWheel() {
   for (int i = 0; i < 255; i++) {
     lantern.setColor(0.1, lantern.colorWheel(i));
   }
+  lantern.wait(1);
 }
 
 /**
@@ -76,4 +80,5 @@ void checkLightWheelBig() {
 
   lantern.setColor(seconds, lantern.colorWheel(-500));
   lantern.setColor(seconds, lantern.colorWheel(500));
+  lantern.wait(1);
 }
