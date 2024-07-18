@@ -7,9 +7,9 @@ RNG rng;
 
 // Creating values outside so that the loop doesn't reset them when fireNoise()
 // is finishes.
-byte red = 255;
-byte green = 0;
-byte blue = 0;
+uint8_t red = 255;
+uint8_t green = 0;
+uint8_t blue = 0;
 
 // Perlin Noise parameters.
 float inc = 0.1;         // Controls the speed of the fire effect.
@@ -89,7 +89,7 @@ void generateNoiseColor() {
     // which is the range of colors.
     const int PRECISION = 1000;
     float value = rng.perlinNoise(x) * PRECISION;
-    byte wheel_position = map(value, -1 * PRECISION, 1 * PRECISION, 0, 255);
+    uint8_t color = map(value, -1 * PRECISION, 1 * PRECISION, 0, 255);
     Serial.print("Color: ");
     Serial.print(wheel_position);
     Serial.print(" Value: ");

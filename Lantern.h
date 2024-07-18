@@ -20,6 +20,8 @@ using byte = uint8_t;
 
 using color = uint32_t;
 
+using color = uint32_t;
+
 class Lantern {
   public:
     
