@@ -7,9 +7,9 @@ RNG rng;
 
 // Creating values outside so that the loop doesn't reset them when fireNoise()
 // is finishes.
-int red = 255;
-int green = 0;
-int blue = 0;
+uint8_t red = 255;
+uint8_t green = 0;
+uint8_t blue = 0;
 
 // Perlin Noise parameters.
 float inc = 0.1;         // Controls the speed of the fire effect.
@@ -23,9 +23,9 @@ void setup() {
 
 void loop() {
   // randomNumbers();
-  randomColors();
+  // randomColors();
   // generateNoise();
-  // generateNoiseColor();
+  generateNoiseColor();
   // fireNoise();
 }
 
@@ -89,12 +89,12 @@ void generateNoiseColor() {
     // which is the range of colors.
     const int PRECISION = 1000;
     float value = rng.perlinNoise(x) * PRECISION;
-    int color = map(value, -1 * PRECISION, 1 * PRECISION, 0, 255);
+    uint8_t color = map(value, -1 * PRECISION, 1 * PRECISION, 0, 255);
     Serial.print("Color: ");
-    Serial.print(color);
+    Serial.print(wheel_position);
     Serial.print(" Value: ");
     Serial.println(value);
-    lantern.setColor(0.1, lantern.colorWheel(color));
+    lantern.setColor(0.1, lantern.colorWheel(wheel_position));
   }
 }
 
@@ -109,7 +109,7 @@ void generateNoiseColor() {
  * 
  */
 void fireNoise() {
-  lantern.setColor(0.1, lantern.color(red, green, blue));
+  lantern.setColor(0.1, lantern.rgb(red, green, blue));
   // Set the starting seed for the fire effect. The max value for the seed is
   // arbitrarily set to 255. It can be any value, but larger values increases
   // the number of random values generated.
@@ -122,7 +122,7 @@ void fireNoise() {
   for (int x = 0; x < SEED_SIZE; x++) {
     green = rng.perlinNoise(xoff) * 255;
     green = map(green, 0, 255, 0, 155);
-    lantern.setColor(0.01, lantern.color(255, green, 0));
+    lantern.setColor(0.01, lantern.rgb(255, green, 0));
     xoff += inc;
     Serial.print("Green: ");
     Serial.println(green);
