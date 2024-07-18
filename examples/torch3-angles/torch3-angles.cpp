@@ -116,7 +116,7 @@ void tiltShift() {
   const int sky_index = findClosest(radians, num_pixels, theta);
   // shift until we move the sky_index to the top of the array
 
-  const int shift_amount = top_index;
+  const int shift_amount = sky_index;
   Serial.print("shift_amount: ");
   Serial.println(shift_amount);
 
