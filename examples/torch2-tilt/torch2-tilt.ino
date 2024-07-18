@@ -1,3 +1,6 @@
+///////////////////////////////////////////////////////////////////////////////
+// PART 1: Imports / Globals  /////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////
 #include <Adafruit_Circuit_Playground.h>
 #include <math.h>
 
@@ -11,6 +14,9 @@ color green = 0x00FF00;
 color red = 0xFF0000;
 color off = 0x000000;
 
+///////////////////////////////////////////////////////////////////////////////
+// PART 2: Setup and Loop /////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////
 void setup() {
   Serial.begin(9600);
   lantern.begin();
@@ -28,44 +34,9 @@ void loop() {
   tiltLight();
 }
 
-/**
- * @brief Prints out the current values of the accelerometer
- * 
- */
-void tiltAccel() {
-  Serial.print("motionX: ");
-  Serial.print(lantern.motionX());
-  Serial.print("\t");
-  Serial.print("motionY: ");
-  Serial.print(lantern.motionY());
-  Serial.print("\t");
-  Serial.print("motionZ: ");
-  Serial.print(lantern.motionZ());
-  Serial.println();
-}
-
-void tiltAngle() {
-  // motion values
-  float x = lantern.motionX();
-  float y = lantern.motionY();
-  float z = lantern.motionZ();
-
-  // tilt angle in radians
-  float theta_x = atan2(x, sqrt(y*y + z*z));
-  float theta_y = atan2(y, sqrt(x*x + z*z));
-
-  // convert radians to degrees
-  float theta_x_deg = theta_x * 180 / M_PI;
-  float theta_y_deg = theta_y * 180 / M_PI;
-
-  Serial.print("theta_x: ");
-  Serial.print(theta_x_deg);
-  Serial.print("\t");
-  Serial.print("theta_y: ");
-  Serial.print(theta_y_deg);
-  Serial.println();
-}
-
+///////////////////////////////////////////////////////////////////////////////
+// PART 3: Functions  /////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////
 /**
  * @brief Calculates the angle of tilt in the x and y direction
  * 
@@ -105,3 +76,45 @@ void tiltLight() {
     lantern.setPixelColor(8, red);
   }
 }
+
+///////////////////////////////////////////////////////////////////////////////
+// PART 4: Helper Functions ///////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////
+/**
+ * @brief Prints out the current values of the accelerometer
+ * 
+ */
+void tiltAccel() {
+  Serial.print("motionX: ");
+  Serial.print(lantern.motionX());
+  Serial.print("\t");
+  Serial.print("motionY: ");
+  Serial.print(lantern.motionY());
+  Serial.print("\t");
+  Serial.print("motionZ: ");
+  Serial.print(lantern.motionZ());
+  Serial.println();
+}
+
+void tiltAngle() {
+  // motion values
+  float x = lantern.motionX();
+  float y = lantern.motionY();
+  float z = lantern.motionZ();
+
+  // tilt angle in radians
+  float theta_x = atan2(x, sqrt(y*y + z*z));
+  float theta_y = atan2(y, sqrt(x*x + z*z));
+
+  // convert radians to degrees
+  float theta_x_deg = theta_x * 180 / M_PI;
+  float theta_y_deg = theta_y * 180 / M_PI;
+
+  Serial.print("theta_x: ");
+  Serial.print(theta_x_deg);
+  Serial.print("\t");
+  Serial.print("theta_y: ");
+  Serial.print(theta_y_deg);
+  Serial.println();
+}
+
