@@ -1,0 +1,95 @@
+name: Version Increment
+
+on:
+  pull_request:
+    types: [closed]
+    branches:
+      - main
+
+jobs:
+  increment-version:
+    if: github.event.pull_request.merged == true
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Install jq
+        run: sudo apt-get install jq
+
+      - name: Determine branch type
+        id: branch_type
+        run: |
+          BRANCH_NAME=$(echo "${{ github.head_ref }}" | awk -F'-' '{print $2}')
+          if [[ "$BRANCH_NAME" == "feature" ]]; then
+            echo "::set-output name=type::feature"
+          elif [[ "$BRANCH_NAME" == "bug" ]]; then
+            echo "::set-output name=type::patch"
+          else
+            echo "::set-output name=type::unknown"
+          fi
+
+      - name: Get issue number
+        id: get_issue_number
+        run: |
+          ISSUE_NUMBER=$(jq -r '.pull_request.head.ref' <<< "${{ github.event }}")
+          echo "::set-output name=issue_number::$ISSUE_NUMBER"
+
+      - name: Get issue labels
+        id: get_issue_labels
+        uses: octokit/request-action@v2
+        with:
+          route: GET /repos/${{ github.repository }}/issues/${{ steps.get_issue_number.outputs.issue_number }}
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Check labels
+        id: check_labels
+        run: |
+          LABELS=$(echo "${{ steps.get_issue_labels.outputs.data }}" | jq -r '.[].name')
+          if [[ "$LABELS" == *"feature"* ]]; then
+            echo "::set-output name=type::feature"
+          elif [[ "$LABELS" == *"bug"* ]]; then
+            echo "::set-output name=type::patch"
+          else
+            echo "::set-output name=type::unknown"
+          fi
+
+      - name: Block PR if no labels
+        if: steps.check_labels.outputs.type == 'unknown'
+        run: |
+          echo "No valid labels found on the PR or branch. Please add a 'feature' or 'bug' label."
+          exit 1
+
+      - name: Read current version
+        id: read_version
+        run: |
+          VERSION=$(grep -E '^version=' library.properties | cut -d'=' -f2)
+          echo "::set-output name=current_version::$VERSION"
+
+      - name: Increment version
+        id: increment_version
+        run: |
+          VERSION=${{ steps.read_version.outputs.current_version }}
+          IFS='.' read -r -a VERSION_PARTS <<< "$VERSION"
+          if [[ "${{ steps.check_labels.outputs.type }}" == "feature" ]]; then
+            VERSION_PARTS[1]=$((VERSION_PARTS[1] + 1))
+            VERSION_PARTS[2]=0
+          elif [[ "${{ steps.check_labels.outputs.type }}" == "patch" ]]; then
+            VERSION_PARTS[2]=$((VERSION_PARTS[2] + 1))
+          fi
+          NEW_VERSION="${VERSION_PARTS[0]}.${VERSION_PARTS[1]}.${VERSION_PARTS[2]}"
+          echo "::set-output name=new_version::$NEW_VERSION"
+
+      - name: Update library.properties
+        run: |
+          NEW_VERSION=${{ steps.increment_version.outputs.new_version }}
+          sed -i "s/^version=.*/version=$NEW_VERSION/" library.properties
+
+      - name: Commit and push changes
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add library.properties
+          git commit -m "Increment version to ${{ steps.increment_version.outputs.new_version }}"
+          git push origin main
